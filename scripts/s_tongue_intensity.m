@@ -1,4 +1,4 @@
-% s_tongue_lip_intensity.m
+% s_tongue_intensity.m
 
 %   Demonstrate that we are measuring fluorescence in two ways
 %   1. compare with light reflected from white surface * tongue reflectance
