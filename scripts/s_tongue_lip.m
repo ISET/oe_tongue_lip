@@ -31,18 +31,21 @@
 
 
 %% make sure these libraries are on your path
+%{
 cd /Users/joyce/Github/isetcam; addpath(genpath(pwd));
 cd /users/joyce/Github/oraleye/; addpath(genpath(pwd));
 cd /users/joyce/Github/isetfluorescence/; addpath(genpath(pwd));
 cd /users/joyce/Github/oe_tongue_lip/; addpath(genpath(pwd));
+%}
 
 ieInit;
 waves = 380:5:750;
 
 %% Spectral basis functions 
-% Can emissions of fluorophores be modeled by a log-normal distribution with single peak?
-% Read in the spectral emissions functions for different tissue fluorophores
-% data in isetfluorescence repository
+
+% Can emissions of fluorophores be modeled by a log-normal distribution
+% with single peak? Read in the spectral emissions functions for different
+% tissue fluorophores data in isetfluorescence repository
 keratin = fiReadFluorophore('keratin.mat','wave',waves);
 ieNewGraphWin; plot(waves, keratin.emission/max(keratin.emission(:)),'g','LineWidth',2);  hold on;
 FAD = fiReadFluorophore('FAD_webfluor.mat','wave',waves); 
@@ -52,10 +55,12 @@ plot(waves, collagen.emission/max(collagen.emission(:)),'b','LineWidth',2);  hol
 elastin = fiReadFluorophore('elastin_webfluor.mat','wave',waves); 
 plot(waves, elastin.emission/max(elastin.emission),'m','LineWidth',2);  
 NADH = fiReadFluorophore('NADH_webfluor.mat','wave',waves);
-plot(waves, NADH.emission/max(NADH.emission),'k','LineWidth',2);  
+plot(waves, NADH.emission/max(NADH.emission),'k','LineWidth',2);
+
 % porphyrins= fiReadFluorophore('Porphyrins.mat','wave',waves); % from Monici
 porphyrins= fiReadFluorophore('protoporphyrin.mat','wave',waves); % from DaCosta % cannot be modeled as log-normal with single peak
 plot(waves, porphyrins.emission/max(porphyrins.emission(:)),'r--','LineWidth',2);  
+
 % From ? (chlorophyll)
 % in isetfluorescence/data but make into a fluorophore struct
 chlorophyllA= ieReadSpectra('ChlorophyllA_emission.mat', waves);
@@ -70,6 +75,7 @@ ylabel('Normalized radiance');
 title('Fluorophore Emissions')
 
 %% fitting a log-normal to emissions
+%{
 % Not sure this is necessary, but it is a simplification
 % need the Statistics and Machine Learning Toolbox
 % [pHat, pCI] = lognfit(x) 
@@ -85,6 +91,7 @@ x= elastin.emission; X = x(x >  0.0001); [pHat, pCI] = lognfit(X)
 x= NADH.emission; X = x(x >  0.0001); [pHat, pCI] = lognfit(X)
 x= collagen.emission; X = x(x >  0.0001); [pHat, pCI] = lognfit(X)
 x= FAD.emission, X = x(x >  0.0001); [pHat, pCI] = lognfit(X)
+%}
 
 %% Read in the functions for light absorbance by oxy and deoxy hemoglobin
 oxy = ieReadSpectra('OxyHemoglobinAbsorption.mat',waves); % currently in cholesteotoma repository
