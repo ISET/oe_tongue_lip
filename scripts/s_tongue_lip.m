@@ -70,12 +70,14 @@ ylabel('Normalized radiance');
 title('Fluorophore Emissions')
 
 %% fitting a log-normal to emissions
+% Not sure this is necessary, but it is a simplification
 % need the Statistics and Machine Learning Toolbox
-% [pHat, pCI] = lognfit(x)
+% [pHat, pCI] = lognfit(x) 
 %       pHat contains the parameter estimates (mean and standard deviation of logarithmic values)
 %       pCI provides the 95% confidence intervals for these estimates.
-% pd = fitdist(x, 'Lognormal') % matlab function for fitting an unbiased lognormal 
-% params = mle(x, 'Distribution', 'Lognormal') % matlab function for fitting a maximum likelihood lognormal 
+% Other functions
+%       pd = fitdist(x, 'Lognormal') % matlab function for fitting an unbiased lognormal 
+%       params = mle(x, 'Distribution', 'Lognormal') % matlab function for fitting a maximum likelihood lognormal 
 % The log-normal distribution is only defined for strictly positive values (greater than zero). 
 % Zero values are not allowed because the natural logarithm of zero is undefined.
 x= keratin.emission; X = x(x >  0.0001); [pHat, pCI] = lognfit(X)
@@ -83,6 +85,7 @@ x= elastin.emission; X = x(x >  0.0001); [pHat, pCI] = lognfit(X)
 x= NADH.emission; X = x(x >  0.0001); [pHat, pCI] = lognfit(X)
 x= collagen.emission; X = x(x >  0.0001); [pHat, pCI] = lognfit(X)
 x= FAD.emission, X = x(x >  0.0001); [pHat, pCI] = lognfit(X)
+
 %% Read in the functions for light absorbance by oxy and deoxy hemoglobin
 oxy = ieReadSpectra('OxyHemoglobinAbsorption.mat',waves); % currently in cholesteotoma repository
 deoxy = ieReadSpectra('DeoxyHemoglobinAbsorption.mat',waves); 
@@ -195,55 +198,3 @@ D_lip_450 = ieReadSpectra('spd-2024-03-19-D_450nm_lip_870mA.mat',waves);
 Z_lip_450 = ieReadSpectra('spd-2024-03-14-Z-450nm_lip_870mA.mat',waves);
 J_lip_450 = ieReadSpectra('spd-2024-03-12-11-450nm-J-lip-870mA.mat',waves);
 
-%% Data : lettuce
-% Move the data to /local?
-% Here is the data plotted before and after lunch to show effect of
-% lettuce
-% Purpose: show difference between before and after, as well as effect of
-% excitation light intensity, and reduction in fluorescence in multiple measurements
-% Before
-
-% After
- % note that the second measurement is less than the first measurement -
-% demonstrating decrease with time (quenching or bleaching)
-joyceTongue910mA = ieReadSpectra('spd-2024-03-08-J-415nm450spf-910mA-R01.mat',waves);	
-% joyceTongue910mA_2 = ieReadSpectra('spd-2024-03-08-J-415nm450spf-910mA-R02.mat',waves); 
-joyceTongue910mA_after = ieReadSpectra('spd-2024-03-08-Jafter-tongue-415nm450spf_910mA-R01.mat',waves);     
-% joyceTongue910mA_2_after = ieReadSpectra('spd-2024-03-08-Jafter-tongue-415nm450spf_910mA-R02.mat',waves);   
-figure; plot(waves,joyceTongue910mA,'k--','LineWidth',2); hold on;
-plot(waves,joyceTongue910mA_after ,'k','LineWidth',2); 
-title('Tongue fluorescence (JF)');
-xlabel('Wavelength (nm)')
-ylabel('Radiance (watts/sr/nm/m^2)');
-fontsize(gca,14,"pixels");
-legend('Before lunch', 'After lunch');
-
-% Do the same plot for the lip to show that there is no effect of lunch
-joyceLip910mA = ieReadSpectra('spd-2024-03-08-J-lip-415nm450spf-910mA-R01.mat',waves);      
-% joyceLip910mA_2 = ieReadSpectra('spd-2024-03-08-J-lip-415nm450spf-910mA-R02.mat',waves);    
-joyceLip910mA_after = ieReadSpectra('spd-2024-03-08-Jafter-lip-415nm450spf_910mA-R02.mat',waves);      	
-% joyceLip910mA_2_after = ieReadSpectra('spd-2024-03-08-Jafter-lip-415nm450spf_910mA-R01.mat',waves);       	
-figure; plot(waves,joyceLip910mA,'k--','LineWidth',2); hold on;
-plot(waves,joyceLip910mA_after ,'k','LineWidth',2); 
-title('Lower lip fluorescence (JF)');
-xlabel('Wavelength (nm)')
-ylabel('Radiance (watts/sr/nm/m^2)');
-fontsize(gca,14,"pixels");
-legend('Before lunch', 'After lunch');
-
-% superimpose measurements of lettuce fluorescence and tongue fluorescence (after lunch) 
-% and chlorophyll emissions 
-% – normalized so that we can compare the spectral curves
-ChlorophyllEmission = ieReadSpectra('ChlorophyllA_emission.mat',waves); 
-% Measurements of lettuce
-lettuce = ieReadSpectra('spd-2024-03-19-lettuce1-415nm-1A.mat',waves); 	
-joyceTongue910mA_after = ieReadSpectra('spd-2024-03-08-Jafter-tongue-415nm450spf_910mA-R01.mat',waves);     
-% joyceTongue910mA_2_after = ieReadSpectra('spd-2024-03-08-Jafter-tongue-415nm450spf_910mA-R02.mat',waves); 
-figure; plot(waves,ChlorophyllEmission,'k--','LineWidth',2); hold on;
-plot(waves,lettuce/max(lettuce),'k:','LineWidth',2); hold on; 
-plot(waves,joyceTongue910mA_after/max(joyceTongue910mA_after),'k','LineWidth',2);
-title('Chlorophyll compared to lettuce and tongue measurements');
-xlabel('Wavelength (nm)')
-ylabel('Normalized Radiance');
-fontsize(gca,14,"pixels");
-legend('Chlorophyll', 'Lettuce', 'Tongue after lunch');
