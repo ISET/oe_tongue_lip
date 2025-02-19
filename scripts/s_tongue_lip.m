@@ -94,11 +94,26 @@ x= FAD.emission, X = x(x >  0.0001); [pHat, pCI] = lognfit(X)
 %}
 
 %% Read in the functions for light absorbance by oxy and deoxy hemoglobin
-oxy = ieReadSpectra('OxyHemoglobinAbsorption.mat',waves); % currently in cholesteotoma repository
-deoxy = ieReadSpectra('DeoxyHemoglobinAbsorption.mat',waves); 
-ieNewGraphWin; plot(waves, oxy/max(oxy(:)),'g','LineWidth',2);  hold on;
-plot(waves, deoxy/max(deoxy(:)),'b','LineWidth',2);  hold on;
+% In isetfluorescence under data/hemoglobin
 
+% Peak blood absorption for oxy is about 415 nm
+% Secondary peaks around 540 and 580nm.  This is a small dip.
+oxy = ieReadSpectra('OxyHemoglobinAbsorption.mat',waves); 
+deoxy = ieReadSpectra('DeoxyHemoglobinAbsorption.mat',waves); 
+ieNewGraphWin; plot(waves, oxy/max(oxy(:)),'r','LineWidth',2);  hold on;
+plot(waves, deoxy/max(deoxy(:)),'b','LineWidth',2);  hold on;
+grid on;
+xlabel("Wavelength (nm)"); ylabel('Absorption (normalized)'); 
+legend({'oxy','deoxy'})
+
+% Compare with the values in ISETCam
+oxy = ieReadSpectra('oxyHemoglobin.mat',waves); 
+deoxy = ieReadSpectra('deoxyHemoglobin.mat',waves); 
+ieNewGraphWin; plot(waves, oxy/max(oxy(:)),'r','LineWidth',2);  hold on;
+plot(waves, deoxy/max(deoxy(:)),'b','LineWidth',2);  hold on;
+grid on;
+xlabel("Wavelength (nm)"); ylabel('Absorption (normalized)'); 
+legend({'oxy','deoxy'})
 %% Data : Tongue autofluorescence with estimated reflectance
 
 % mean tongue reflectance
@@ -107,14 +122,19 @@ plot(waves, deoxy/max(deoxy(:)),'b','LineWidth',2);  hold on;
 tongue = ieReadSpectra('tongue.mat',waves); 
 figure; plot(waves,tongue,'k'); hold on;
 meanTongueReflectance = mean(tongue,2);
+ieNewGraphWin;
 plot(waves,meanTongueReflectance,'r','LineWidth',2);
 title('Tongue Reflectance Measurements')
 fontsize(gca,16,"pixels");
 xlabel('wavelength (nm');
 ylabel('Reflectance');	
 
+%%
 % predicted tongue reflectance for 405 nm light at different intensity levels
 % 405 nm light with 980mA current
+% whiteSurface - Light reflected from a white surface, and thus the
+% illumination light
+% predictedTongueReflectance - Radiance of light reflected
 whiteSurface = ieReadSpectra('spd-2024-03-17-NoiseCheck-405nm_980mA.mat',waves);
 predictedTongueReflectance_405nm_980mA = whiteSurface .* meanTongueReflectance;
 whiteSurface = ieReadSpectra('spd-2024-03-17-NoiseCheck-405nm_560mA.mat',waves);
@@ -136,47 +156,55 @@ predictedTongueReflectance_450nm_480mA = whiteSurface .* meanTongueReflectance;
 whiteSurface = ieReadSpectra('spd-2024-03-17-NoiseCheck-450nm_90mA.mat',waves); 
 predictedTongueReflectance_450nm_90mA = whiteSurface .* meanTongueReflectance;
 
-% Tongue: for each light, plot radiance measured at max intensity (N subjects), along with predicted reflectance
-% This will be 3 figures, one for each light, tongue data only since we
-% only have reflectance data for tongues
-% to plot the data measured with different intensities see
-% s_TongueFluorescencewithReflectance.m
-% 405 nm light
+% Tongue: for each light, plot radiance measured at max intensity (N
+% subjects), along with predicted reflectance This will be 3 figures, one
+% for each light, tongue data only since we only have reflectance data for
+% tongues to plot the data measured with different intensities see
+% s_TongueFluorescencewithReflectance.m 405 nm light
 Z_tongue = ieReadSpectra('spd-2024-03-14-Z-405nm_tongue_980mA.mat',waves); 
 J_tongue = ieReadSpectra('spd-2024-03-12-11-405nm-J-tongue-980mA.mat',waves); 
 B_tongue = ieReadSpectra('spd-2024-03-19-B_405nm_tongue_980mA.mat',waves); 
 D_tongue = ieReadSpectra('spd-2024-03-19-D_4050nm_tongue_980mA.mat',waves); 
-figure; plot(waves,predictedTongueReflectance_405nm_980mA,'k--','LineWidth',2); hold on;
+
+ieNewGraphWin;
+plot(waves,predictedTongueReflectance_405nm_980mA,'k--','LineWidth',2); hold on;
 plot(waves,Z_tongue ,'k','LineWidth',2);
 plot(waves,J_tongue ,'k','LineWidth',2);
 plot(waves,B_tongue ,'k','LineWidth',2);
 plot(waves,D_tongue ,'k','LineWidth',2);
+
 title('Tongue fluorescence (N=4) with 405 nm light');
 xlabel('Wavelength (nm)')
 ylabel('Radiance (watts/sr/nm/m^2)');
 fontsize(gca,14,"pixels");
 
-% 415 light
+%% 415 light
 Z_tongue = ieReadSpectra('spd-2024-03-14-Z-415nm_Tongue_910mA.mat',waves); 
 J_tongue = ieReadSpectra('spd-2024-03-12-11-415nm-J-tongue-910mA.mat',waves); 
 B_tongue = ieReadSpectra('spd-2024-03-19-B_415nm_tongue_910mA.mat',waves); 
 D_tongue = ieReadSpectra('spd-2024-03-19-D_415nm_tongue_910mA.mat',waves); 
-figure; plot(waves,predictedTongueReflectance_415nm_910mA,'k--','LineWidth',2); hold on;
+
+ieNewGraphWin; 
+plot(waves,predictedTongueReflectance_415nm_910mA,'k--','LineWidth',2); hold on;
 plot(waves,Z_tongue ,'k','LineWidth',2);
 plot(waves,J_tongue ,'k','LineWidth',2);
 plot(waves,B_tongue ,'k','LineWidth',2);
 plot(waves,D_tongue ,'k','LineWidth',2);
+
 title('Tongue fluorescence (N=4) with 415 nm light');
 xlabel('Wavelength (nm)')
 ylabel('Radiance (watts/sr/nm/m^2)');
 fontsize(gca,14,"pixels");
 
-% 450 light
+%% 450 light at different levels
 Z_tongue = ieReadSpectra('spd-2024-03-14-Z-450nm_tongue_870mA.mat',waves);
 J_tongue = ieReadSpectra('spd-2024-03-12-450nm-J-tongue-460mA-1.mat',waves);
 B_tongue = ieReadSpectra('spd-2024-03-19-B_450nm_tongue_870mA.mat',waves); 
 D_tongue = ieReadSpectra('spd-2024-03-19-D_450nm_tongue_870mA.mat',waves); 
-figure; plot(waves,predictedTongueReflectance_450nm_870mA,'k--','LineWidth',2); hold on;
+
+ieNewGraphWin; 
+plot(waves,predictedTongueReflectance_450nm_870mA,'k--','LineWidth',2); 
+hold on;
 plot(waves,Z_tongue ,'k','LineWidth',2);
 plot(waves,J_tongue ,'k','LineWidth',2);
 plot(waves,B_tongue ,'k','LineWidth',2);
@@ -186,13 +214,14 @@ xlabel('Wavelength (nm)')
 ylabel('Radiance (watts/sr/nm/m^2)');
 fontsize(gca,14,"pixels");
 
+%% Data: Lower Lip for different subjects D,Z,J,B
 
-%% Data: Lower Lip
 % 405
 % B_lip_405 = ieReadSpectra('spd-2024-03-19-B_405nm_lip_980mA.mat',waves);
 D_lip_405 = ieReadSpectra('spd-2024-03-19-D_4050nm_lip_980mA.mat',waves);
 Z_lip_405 = ieReadSpectra('spd-2024-03-14-Z-405nm_lip_980mA.mat',waves);
 J_lip_405 = ieReadSpectra('spd-2024-03-12-11-405nm-J-lip-980mA.mat',waves);
+
 % 415
 B_lip_415 = ieReadSpectra('spd-2024-03-19-B_415nm_lip_910mA.mat',waves);
 D_lip_415 = ieReadSpectra('spd-2024-03-19-D_415nm_lip_910mA.mat',waves);
@@ -205,3 +234,6 @@ D_lip_450 = ieReadSpectra('spd-2024-03-19-D_450nm_lip_870mA.mat',waves);
 Z_lip_450 = ieReadSpectra('spd-2024-03-14-Z-450nm_lip_870mA.mat',waves);
 J_lip_450 = ieReadSpectra('spd-2024-03-12-11-450nm-J-lip-870mA.mat',waves);
 
+% Missing plots here.
+
+%%
