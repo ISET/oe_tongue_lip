@@ -99,6 +99,12 @@ x= FAD.emission, X = x(x >  0.0001); [pHat, pCI] = lognfit(X)
 % Peak blood absorption for oxy is about 415 nm
 % Secondary peaks around 540 and 580nm.  This is a small dip.
 oxy = ieReadSpectra('OxyHemoglobinAbsorption.mat',waves); 
+oxy2 = medium('oxyHemoglobin.mat','wave',waves,'optical density',0.2);
+oxy2.plot('absorbance');
+hold on;
+plot(waves,oxy/max(oxy(:)));
+
+
 deoxy = ieReadSpectra('DeoxyHemoglobinAbsorption.mat',waves); 
 ieNewGraphWin; plot(waves, oxy/max(oxy(:)),'r','LineWidth',2);  hold on;
 plot(waves, deoxy/max(deoxy(:)),'b','LineWidth',2);  hold on;
