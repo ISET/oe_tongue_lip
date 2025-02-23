@@ -57,7 +57,7 @@ plot(waves, elastin.emission/max(elastin.emission),'m','LineWidth',2);
 NADH = fiReadFluorophore('NADH_webfluor.mat','wave',waves);
 plot(waves, NADH.emission/max(NADH.emission),'k','LineWidth',2);
 
-% porphyrins= fiReadFluorophore('Porphyrins.mat','wave',waves); % from Monici
+%% porphyrins= fiReadFluorophore('Porphyrins.mat','wave',waves); % from Monici
 porphyrins= fiReadFluorophore('protoporphyrin.mat','wave',waves); % from DaCosta % cannot be modeled as log-normal with single peak
 plot(waves, porphyrins.emission/max(porphyrins.emission(:)),'r--','LineWidth',2);  
 
