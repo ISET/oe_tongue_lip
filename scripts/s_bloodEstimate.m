@@ -93,8 +93,9 @@ end
 %
 
 % Let's fit this one, but only for wavelengths above 480 nm
-fname = 'spd-2024-03-14-Z-415nm_lip_910mA.mat';
-wave = 480:5:600;
+% fname = 'spd-2024-03-14-Z-415nm_lip_910mA.mat';
+fname = 'spd-2024-03-07-B-tongue-415nm450SPF-910mA-R01.mat';
+wave = 500:5:600;
 [data,wave] = ieReadSpectra(fullfile(dataDir,fname),wave);
 
 % For these fluorophores, the columns of the excitation-emission matrix are
@@ -131,23 +132,25 @@ plot(wave, porphyrins.emission/max(porphyrins.emission(:)),'r--','LineWidth',2);
 %
 % Notice that a couple of them are relatively weak above 450/475 where we
 % have the measurements.  But those may be the ones we are seeing.
+%{
 fluorophorePlot(keratin,'eem');
 fluorophorePlot(FAD,'eem');
 fluorophorePlot(collagen,'eem');
 fluorophorePlot(porphyrins,'eem');
-
+%}
+%%
 fBasis = ...
     [keratin.emission/max(keratin.emission(:)), ...
     FAD.emission/max(FAD.emission(:)), ...
     collagen.emission/max(collagen.emission(:)), ...
     porphyrins.emission/max(porphyrins.emission(:))];
-ieNewGraphWin; plot(wave,fBasis);
+% ieNewGraphWin; plot(wave,fBasis);
 
 
 %% Find the weights from fluorophores to the full data
 
 % data = fBasis*wgts, but the weights must be non-negative
-cols = 1:4;
+cols = 1:3;
 wgts = lsqnonneg(fBasis(:,cols),data);
 % wgts = pinv(fBasis(:,1:3))*data;
 
@@ -155,5 +158,8 @@ ieNewGraphWin;
 plot(wave,data,'g-',wave,fBasis(:,cols)*wgts,'k:')
 
 % Choose the OD to minimize this?
-rmse(fBasis*wgts,data)
+rmse(fBasis(:,cols)*wgts,data)
+disp(fname)
+disp(wgts)
 
+%%
