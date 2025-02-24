@@ -1,4 +1,4 @@
-%  s_compareSubjects.m
+e%  s_compareSubjects.m
 
 % Description: To compare the spectral shape of tissue autofluorescence
 % across 4 different subjects, we normalized the measurements by dividing

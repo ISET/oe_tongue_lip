@@ -19,6 +19,8 @@ waves = 380:5:750;
 
 
 %% Predicted Reflectance
+% We measured how much of the LED light passed through the 475 nm placed on
+% the spectrophotometer and then multiplied it with tongue reflectance
 tongue = ieReadSpectra('tongue.mat',waves); 
 figure; plot(waves,tongue,'k'); hold on;
 meanTongueReflectance = mean(tongue,2);
