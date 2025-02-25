@@ -47,19 +47,19 @@ ylabel('Normalized radiance');
 % keratin measured by Wu & Gu (2006)
 %{
 ieNewGraphWin;
-keratin_emissions = ieReadSpectra('Keratin_Wu&Qu_emissions.mat',waves); % Wu & Qu 2006
+keratin_emissions = ieReadSpectra('Keratin_Wu&Qu_emissions.mat',waves); 
 plot(waves,keratin_emissions/max(keratin_emissions(:)),'r','LineWidth',2); hold on;
-keratin = fiReadFluorophore('keratin.mat','wave',waves);                % DaCosta et al 2003
-plot(waves, keratin.emission/max(keratin.emission(:)),'r--','LineWidth',2); 
+keratin = fiReadFluorophore('keratin.mat','wave',waves);
+plot(waves, keratin.emission/max(keratin.emission(:)),'r--','LineWidth',2);  
 legend( 'Wu and Qu (2006)', 'DaCosta et al (2003)');
 title('Keratin emission spectra');
 %}
 
 %{
 ieNewGraphWin;
-collagen_emissions = ieReadSpectra('Collagen_Wu&Qu_emissions.mat',waves); %  Wu & Qu 2006
+collagen_emissions = ieReadSpectra('Collagen_Wu&Qu_emissions.mat',waves); % use this one 
 plot(waves,collagen_emissions/max(collagen_emissions(:)),'g','LineWidth',2); hold on;
-collagen = fiReadFluorophore('collagen1.mat','wave',waves); % DaCosta et al 2003
+collagen = fiReadFluorophore('collagen1.mat','wave',waves); 
 plot(waves, collagen.emission/max(collagen.emission(:)),'g--','LineWidth',2); 
 legend( 'Wu and Qu (2006)', 'DaCosta et al (2003)');
 title('Collagen emission spectra');
@@ -71,31 +71,40 @@ title('Collagen emission spectra');
 %   plot(waves,keratinPenaEtAl/max(keratinPenaEtAl(:)),'g*','LineWidth',2); hold on;
 %   I think that the Keratin_WuandQu.mat data were taken from PenaEtAl2005 -
 %   so rename Keratin_WuandQu.mat to be KeratinPenaEtAl2005.mat
-%{ 
 ieNewGraphWin;
-keratin_emissions = ieReadSpectra('Keratin_Wu&Qu_emissions.mat',waves); % Wu & Qu 2006
+keratin_emissions = ieReadSpectra('Keratin_Wu&Qu_emissions.mat',waves); 
 plot(waves,keratin_emissions/max(keratin_emissions(:)),'r','LineWidth',2); hold on;
-keratinWuQu = fiReadFluorophore('Keratin_WuandQu.mat','wave',waves); % mislabeled
+keratinWuQu = fiReadFluorophore('Keratin_WuandQu.mat','wave',waves); 
 plot(waves,keratinWuQu.emission/max(keratinWuQu.emission(:)),'r--','LineWidth',2); hold on;
 keratin_emissions_Pena = ieReadSpectra('Keratin_Emission_PenaEtAl2005',waves); 
 plot(waves,keratin_emissions_Pena/max(keratin_emissions_Pena(:)),'r:','LineWidth',2); hold on;
-legend('Keratin-Wu&Qu_emissions.mat','Keratin-WuandQu.mat','Keratin-Emission-PenaEtAl2005');
-%}
+legend('Wu&Qu2006','')
 
-%% use these as spectral basis functions
+
 ieNewGraphWin;
-collagen_emissions = ieReadSpectra('Collagen_Wu&Qu_emissions.mat',waves); 
-plot(waves,collagen_emissions/max(collagen_emissions(:)),'g','LineWidth',2); hold on;
 keratin_emissions = ieReadSpectra('Keratin_Wu&Qu_emissions.mat',waves); 
-plot(waves,keratin_emissions/max(keratin_emissions(:)),'r','LineWidth',2); hold on;
+plot(waves,keratin_emissions/max(keratin_emissions(:)),'g:','LineWidth',2); hold on;
+keratinWuQu = fiReadFluorophore('Keratin_WuandQu.mat','wave',waves); 
+plot(waves,keratinWuQu.emission/max(keratinWuQu.emission(:)),'g--','LineWidth',2); hold on;
+keratin = fiReadFluorophore('keratin.mat','wave',waves);
+plot(waves, keratin.emission/max(keratin.emission(:)),'g','LineWidth',2);  hold on;
+
+collagen_emissions = ieReadSpectra('Collagen_Wu&Qu_emissions.mat',waves); % use this one 
+plot(waves,collagen_emissions/max(collagen_emissions(:)),'b:','LineWidth',2); hold on;
+collagen = fiReadFluorophore('collagen1.mat','wave',waves); 
+plot(waves, collagen.emission/max(collagen.emission(:)),'b','LineWidth',2); 
+legend('keratin (Wu & Gu (2006)', 'keratin (Pena et al)', 'keratin (DaCosta et al 2003)','collagen (Wu & Gu (2006)', 'collagen (DaCosta et al 2003)');
+
+
+FAD = fiReadFluorophore('FAD_webfluor.mat','wave',waves); 
+plot(waves, FAD.emission/max(FAD.emission(:)),'r','LineWidth',2);  
+elastin = fiReadFluorophore('elastin_webfluor.mat','wave',waves); 
+plot(waves, elastin.emission/max(elastin.emission),'m','LineWidth',2);  
 NADH = fiReadFluorophore('NADH_webfluor.mat','wave',waves);
 plot(waves, NADH.emission/max(NADH.emission),'k','LineWidth',2);
-FAD = fiReadFluorophore('FAD_webfluor.mat','wave',waves); 
-plot(waves, FAD.emission/max(FAD.emission(:)),'b','LineWidth',2);  
-legend('collagen', 'keratin', 'NADH', 'FAD');
-% not sure about elastin
-% elastin = fiReadFluorophore('elastin_webfluor.mat','wave',waves); % not
-% plot(waves, elastin.emission/max(elastin.emission),'m','LineWidth',2); 
+legend('keratin (Wu & Gu (2006)', 'keratin (Pena et al)','keratin (DaCosta et al 2003)',...
+'collagen (Wu & Gu (2006)', 'collagen (DaCosta et al 2003)',...
+'FAD (DaCosta et al 2003)','elastin (DaCosta et al 2003)','NADH (DaCosta et al 2003)');
 set(gca,'fontsize',16);
 xlabel('Wavelength (nm)');
 ylabel('Normalized radiance');
