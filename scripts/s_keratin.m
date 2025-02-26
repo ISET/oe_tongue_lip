@@ -92,7 +92,7 @@ NADH = fiReadFluorophore('NADH_webfluor.mat','wave',waves);
 plot(waves, NADH.emission/max(NADH.emission),'k','LineWidth',2);
 FAD = fiReadFluorophore('FAD_webfluor.mat','wave',waves); 
 plot(waves, FAD.emission/max(FAD.emission(:)),'b','LineWidth',2);  
-legend('collagen', 'keratin', 'NADH', 'FAD');
+legend('collagen (Wu&Qu2006)', 'keratin (Wu&Qu2006)', 'NADH (DaCosta et al 2003)', 'FAD (DaCosta et al 2003)');
 % not sure about elastin
 % elastin = fiReadFluorophore('elastin_webfluor.mat','wave',waves); % not
 % plot(waves, elastin.emission/max(elastin.emission),'m','LineWidth',2); 
