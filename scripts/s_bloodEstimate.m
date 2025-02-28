@@ -43,7 +43,7 @@ for ii = 1:numel(od)
 end
 
 %%
-od = 0.0:0.3:3;
+od = 0.0:0.3:2;
 ieNewGraphWin;
 for ii=1:numel(od)
     oxyblood.opticalDensity = od(ii);
@@ -65,7 +65,7 @@ ieNewGraphWin;
 for ii=1:numel(od)
     oxyblood.opticalDensity = od(ii);
     transmittance = oxyblood.transmittance;
-    k = 1;
+    k = 0.9;
     est = data ./ (k*transmittance);
     plot(wave,est,'k-',wave,data,'g--'); hold on;
     % oxyblood.plot('transmittance','new figure',false,'line','r-');
@@ -79,7 +79,7 @@ ieNewGraphWin;
 for ii=1:numel(od)
     oxyblood.opticalDensity = od(ii);
     transmittance = oxyblood.transmittance;
-    k = 1;
+    k = 0.9;
     est = data ./ (k*transmittance);
     plot(wave,est,'k-',wave,data,'g--'); hold on;
     % oxyblood.plot('transmittance','new figure',false,'line','r-');
