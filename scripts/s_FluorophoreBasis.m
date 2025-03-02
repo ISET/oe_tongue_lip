@@ -1,6 +1,9 @@
 % s_FluorophoreBasis.m
-
-%% make sure these libraries are on your path
+%
+% Save a matrix whose columns are the normalized emission spectra of a
+% large number fluorophores read from the literature.
+%
+% These libraries should be on your path
 %{
 cd /Users/joyce/Github/isetcam; addpath(genpath(pwd));
 cd /users/joyce/Github/oraleye/; addpath(genpath(pwd));
@@ -8,14 +11,9 @@ cd /users/joyce/Github/isetfluorescence/; addpath(genpath(pwd));
 cd /users/joyce/Github/oe_tongue_lip/; addpath(genpath(pwd));
 %}
 
-% We are showing examples of weighted sums of collagen, elastin, keratin
-% and FAD.  For the lip, keratin would be zero.
-%
-dataDir = fullfile(oeTongueLipRootPath,'data','RawTongueLip');
-
 % Let's fit this one, but only for wavelengths above 480 nm
 ieNewGraphWin;
-wave = 400:5:700;
+wave = 400:705;
 % First compare the fluorophores and then select
 % For these fluorophores, the columns of the excitation-emission matrix are
 % all pretty much the same, apart from a scale factor. So the excitation is
@@ -29,7 +27,7 @@ wave = 400:5:700;
 % Keratin_Wu&Qu_emissions.mat
 % elastinPaleroEtAl2007.mat
 % keratinPaleroEtAl2007.mat
-ieNewGraphWin;
+
 elastinPalero = ieReadSpectra('elastinPaleroEtAl2007.mat',wave); 
 elastinMonici = fiReadFluorophore('Elastin.mat','wave',wave);
 elastin_Alfano = ieReadSpectra('elastin_emissions_Alfano',wave);
