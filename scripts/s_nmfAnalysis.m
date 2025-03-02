@@ -39,7 +39,7 @@ ieInit;
 datadir = fullfile(oreyeRootPath,'local','data','20240307'); 
 
 allData = [];
-wave = 350:5:800;
+wave = 500:5:705;
 
 %%
 zhenyiTongueFiles = dir(fullfile(datadir,'zhenyi/*Tongue*'));
@@ -81,16 +81,15 @@ allData = [allData,thisData];
 % Basis = nnmf(allData,k);
 % H is a kxn matrix where n is the original number of columns in allData, and k is the number of factors;
 %{
-ieNewGraphWin
-allDataNormalized = allData/max(allData);
-plot(wave,allData ,'k','LineWidth',2); hold on;
+ieNewGraphWin;
+plot(wave,allData,'k','LineWidth',2); hold on;
 title('Tongue Fluorescence (N =4) ');
 fontsize(gca,16,"pixels");
 xlabel('wavelength (nm');
 ylabel('Radiance (energy)');	
 xlim([400 800]);
 %}
-
+[rows,cols] = size(allData);
 for k = 1:3
     [Basis,H] = nnmf(allData,k);
     total_variance = sum(var(allData));
@@ -98,14 +97,16 @@ for k = 1:3
     explained_variance = sum(var(approximation));
     percent_variance = (explained_variance / total_variance) * 100;
     fprintf('k is %i',k);
-    fprintf('  percent var acc for %.2f%%\n',percent_variance);
-    figure; plot(wave,allData,'g','LineWidth',2); hold on;
-    plot(wave,approximation,'r');
-    title('Tongue Fluorescence',k);
+    fprintf(' percent var acc for %.2f%%\n',percent_variance);
+    figure;
+    for jj = 1:cols
+        plot(approximation(:,jj),allData(:,jj),'ko','LineWidth',2); hold on;
+    end
+    title(['Tongue  Nfactors =' num2str(k), '    var acc for ' num2str(percent_variance,4)]);
+
     fontsize(gca,16,"pixels");
     xlabel('wavelength (nm');
-    ylabel('Radiance (energy)');	
-    xlim([400 800]);
+    ylabel('Radiance (energy)');
 end
 
 % plot the Factors (Basis)
