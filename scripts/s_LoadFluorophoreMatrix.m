@@ -16,7 +16,8 @@ fluorophoreNames = {...
     'CollagenAlfano', 'CollagenMonici','CollagenPalero','CollagenWuQu',...
     'KeratinPalero','KeratinPena','KeratinWuQu','keratin_webfluor',...
     'FAD_webfluor','FADAlfano','FADBecker','FADMonici',...
-    'NADH_webfluor','NADHAlfano','NADHMonici'};
+    'NADH_webfluor','NADHAlfano','NADHMonici', ...
+    'PorphyrinBjurshammar','PorphyrinsMonici','PorphyrinSudhakar','PorphyrinUttamlal','PorphyrinWagnieres'};
 
 % Not sure what to do with this.
 % 'NADPHPalero',...
@@ -28,7 +29,7 @@ for ff = 1:numel(fluorophoreNames)
 end
 
 %% Let's fit this one, but only for wavelengths above 480 nm
-wave = 400:705;
+wave = 300:705;
 
 %% Elastin
 figHdl = ieNewGraphWin;
@@ -70,6 +71,13 @@ for ff = 17:19
 end
 legend(fluorophoreNames{16:18});
 
+%% Porphyrins
+figHdl = ieNewGraphWin;
+for ff = 20:24
+    thisF = fiReadFluorophore(fluorophoreNames{ff},'wave',wave);
+    fluorophorePlot(thisF,'emission','fighdl',figHdl); hold on;
+end
+legend(fluorophoreNames{20:24});
 %%  See how to make a matrix in s_oeBloodFluorophoreBasis.mlxs
 
 
