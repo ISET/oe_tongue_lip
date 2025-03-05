@@ -2,17 +2,27 @@
 % 
 
 % 
-oeDatabase = table();
+% ieDatabase(fields)
+
 
 dataDir = fullfile(oeTongueLipRootPath,'data','RawTongueLip');
 dataFiles = dir([dataDir,'/*.mat']);
+
+fields =     {'file',  'date',  'subject','ewave', 'elevel','roi'};
+fieldtypes = {'string','string','string', 'double','double','double'};
+oeDatabase = table('Size', [numel(dataFiles), length(fields)], ...
+    'VariableNames', fields, ...
+    'VariableTypes',fieldtypes);
+
 
 for ff = 1:numel(dataFiles)
     name = dataFiles(ff).name;
 
     % Date
     oeDatabase.date{ff}  = name(5:14);
-    oeDatabase.file{ff}  = dataFiles(ff).name;
+
+    % File
+    oeDatabase.file{ff}  = name;
 
     % Subject
     if contains(name,'-J-'),          oeDatabase.subject{ff} = 'J';
@@ -25,11 +35,12 @@ for ff = 1:numel(dataFiles)
     else,                             oeDatabase.subject{ff} = 'Unknown';
     end
 
-    % Excitation wavelength
-    if contains(name,'405nm'),     oeDatabase.eWave{ff} = 405;
-    elseif contains(name,'415nm'), oeDatabase.eWave{ff} = 415;
-    elseif contains(name,'450nm'), oeDatabase.eWave{ff} = 450;
-    else,                          oeDatabase.eWave{ff} = [];
+    % Excitation wavelength - Notice the use of () instead of {} for
+    % numeric table entries
+    if contains(name,'405nm'),     oeDatabase.ewave(ff) = 405;
+    elseif contains(name,'415nm'), oeDatabase.ewave(ff) = 415;
+    elseif contains(name,'450nm'), oeDatabase.ewave(ff) = 450;
+    else,                          oeDatabase.ewave(ff) = 0;
     end
 
     % Substrate
@@ -42,25 +53,28 @@ for ff = 1:numel(dataFiles)
     end
 
     % ROI - Sometimes there are 2 ROIs
-    if contains(name,'R01'),     oeDatabase.roi{ff} = 1;
-    elseif contains(name,'R02'), oeDatabase.roi{ff} = 2;
-    else,                        oeDatabase.roi{ff} = 1;
+    if contains(name,'R01'),     oeDatabase.roi(ff) = 1;
+    elseif contains(name,'R02'), oeDatabase.roi(ff) = 2;
+    else,                        oeDatabase.roi(ff) = 1;
     end
     
-    % eLevel 
-    if contains(name,'80mA'),      oeDatabase.eLevel{ff} = 80;
-    elseif contains(name,'90mA'),  oeDatabase.eLevel{ff} = 90;  
-    elseif contains(name,'170mA'), oeDatabase.eLevel{ff} = 170;
-    elseif contains(name,'460mA'), oeDatabase.eLevel{ff} = 460;
-    elseif contains(name,'560mA'), oeDatabase.eLevel{ff} = 560;
-    elseif contains(name,'870mA'), oeDatabase.eLevel{ff} = 870;
-    elseif contains(name,'910mA'), oeDatabase.eLevel{ff} = 910;
-    elseif contains(name,'980mA'), oeDatabase.eLevel{ff} = 980;        
-    elseif contains(name,'1000mA'),oeDatabase.eLevel{ff} = 1000;
-    else, oeDatabase.eLevel{ff} =[];
+    % Excitation level 
+    if contains(name,'80mA'),      oeDatabase.elevel(ff) = 80;
+    elseif contains(name,'90mA'),  oeDatabase.elevel(ff) = 90;  
+    elseif contains(name,'170mA'), oeDatabase.elevel(ff) = 170;
+    elseif contains(name,'460mA'), oeDatabase.elevel(ff) = 460;
+    elseif contains(name,'560mA'), oeDatabase.elevel(ff) = 560;
+    elseif contains(name,'870mA'), oeDatabase.elevel(ff) = 870;
+    elseif contains(name,'910mA'), oeDatabase.elevel(ff) = 910;
+    elseif contains(name,'980mA'), oeDatabase.elevel(ff) = 980;        
+    elseif contains(name,'1000mA'),oeDatabase.elevel(ff) = 1000;
+    else, oeDatabase.elevel(ff) = 0;
     end
 
 end
+
+size(oeDatabase)
+oeDatabase
 
 % For string fields
 matchingFiles = oeDatabase(strcmp(oeDatabase.substrate, 'lettuce'), :);
@@ -68,7 +82,7 @@ matchingFiles = oeDatabase(strcmp(oeDatabase.substrate, 'lettuce'), :);
 % For numeric fields.
 matchingFiles = oeDatabase( cellfun(@(x) isequal(x, 450), oeDatabase.eWave), :);
 
-matchingFiles = oeDatabase( cellfun(@(x) isequal(x, 1000), oeDatabase.eLevel), :);
+matchingFiles = oeDatabase( cellfun(@(x) isequal(x, 1000), oeDatabase.elevel), :);
 
 %{
  Add data for each file
