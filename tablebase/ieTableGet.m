@@ -18,9 +18,20 @@ function files = ieTableGet(T,varargin)
 % Example:
 %{
 T = oeDatabase;
+variableTypes = varfun(@class, T, 'OutputFormat', 'cell')
+
 files = ieTableGet(T,'ewave',415)
+variableTypes = varfun(@class, T, 'OutputFormat', 'cell')
+
 files = ieTableGet(T,'subject','J')
+variableTypes = varfun(@class, T, 'OutputFormat', 'cell')
+
 files = ieTableGet(T,'ewave',415,'subject','J','substrate','tongue')
+variableTypes = varfun(@class, T, 'OutputFormat', 'cell')
+
+files = ieTableGet(T,'ewave',415,'subject','J','e level',910)
+variableTypes = varfun(@class, T, 'OutputFormat', 'cell')
+
 %}
 
 %% Parse
@@ -91,7 +102,7 @@ function commonStrings = findCommonStrings(files, tmp)
     commonStrings = {};
     for ii = 1:length(files)
         if ismember(files{ii}, tmp)
-            commonStrings{end+1} = files{ii};
+            commonStrings{end+1} = files{ii}; %#ok<AGROW>
         end
     end
 end
