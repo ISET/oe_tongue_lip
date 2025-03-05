@@ -8,11 +8,13 @@
 dataDir = fullfile(oeTongueLipRootPath,'data','RawTongueLip');
 dataFiles = dir([dataDir,'/*.mat']);
 
-fields =     {'file',  'date',  'subject','ewave', 'elevel','roi'};
-fieldtypes = {'string','string','string', 'double','double','double'};
+fields =     {'date',  'file',  'subject', 'substrate','ewave', 'elevel','roi'};
+fieldtypes = {'string','string','string',  'string',   'double','double','double'};
+
 oeDatabase = table('Size', [numel(dataFiles), length(fields)], ...
     'VariableNames', fields, ...
     'VariableTypes',fieldtypes);
+oeDatabase.Properties.VariableTypes
 
 
 for ff = 1:numel(dataFiles)
@@ -35,6 +37,15 @@ for ff = 1:numel(dataFiles)
     else,                             oeDatabase.subject{ff} = 'Unknown';
     end
 
+    % Substrate
+    if contains(name,'lip'),        oeDatabase.substrate(ff) = 'lip';
+    elseif contains(name,'Lip'),    oeDatabase.substrate(ff) = 'lip';
+    elseif contains(name,'tongue'), oeDatabase.substrate(ff) = 'tongue';
+    elseif contains(name,'Tongue'), oeDatabase.substrate(ff) = 'tongue';
+    elseif contains(name,'lettuce'), oeDatabase.substrate(ff) = 'lettuce';
+    else, oeDatabase.substrate{ff} = 'unknown';
+    end
+
     % Excitation wavelength - Notice the use of () instead of {} for
     % numeric table entries
     if contains(name,'405nm'),     oeDatabase.ewave(ff) = 405;
@@ -43,21 +54,6 @@ for ff = 1:numel(dataFiles)
     else,                          oeDatabase.ewave(ff) = 0;
     end
 
-    % Substrate
-    if contains(name,'lip'),        oeDatabase.substrate{ff} = 'lip';
-    elseif contains(name,'Lip'),    oeDatabase.substrate{ff} = 'lip';
-    elseif contains(name,'tongue'), oeDatabase.substrate{ff} = 'tongue';
-    elseif contains(name,'Tongue'), oeDatabase.substrate{ff} = 'tongue';
-    elseif contains(name,'lettuce'), oeDatabase.substrate{ff} = 'lettuce';
-    else, oeDatabase.substrate{ff} = 'unknown';
-    end
-
-    % ROI - Sometimes there are 2 ROIs
-    if contains(name,'R01'),     oeDatabase.roi(ff) = 1;
-    elseif contains(name,'R02'), oeDatabase.roi(ff) = 2;
-    else,                        oeDatabase.roi(ff) = 1;
-    end
-    
     % Excitation level 
     if contains(name,'80mA'),      oeDatabase.elevel(ff) = 80;
     elseif contains(name,'90mA'),  oeDatabase.elevel(ff) = 90;  
@@ -71,18 +67,26 @@ for ff = 1:numel(dataFiles)
     else, oeDatabase.elevel(ff) = 0;
     end
 
+    % ROI - Sometimes there are 2 ROIs
+    if contains(name,'R01'),     oeDatabase.roi(ff) = 1;
+    elseif contains(name,'R02'), oeDatabase.roi(ff) = 2;
+    else,                        oeDatabase.roi(ff) = 1;
+    end
+
 end
 
 size(oeDatabase)
 oeDatabase
 
+files = ieTableGet(oeDatabase,'operator','and','subject','J');
+
 % For string fields
 matchingFiles = oeDatabase(strcmp(oeDatabase.substrate, 'lettuce'), :);
 
 % For numeric fields.
-matchingFiles = oeDatabase( cellfun(@(x) isequal(x, 450), oeDatabase.eWave), :);
+matchingFiles = oeDatabase(oeDatabase.ewave == 450, :);
 
-matchingFiles = oeDatabase( cellfun(@(x) isequal(x, 1000), oeDatabase.elevel), :);
+matchingFiles = oeDatabase( oeDatabase.elevel == 1000, :);
 
 %{
  Add data for each file
