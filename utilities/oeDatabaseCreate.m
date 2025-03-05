@@ -42,11 +42,11 @@ for ff = 1:numel(dataFiles)
     oeDatabase.file{ff}  = name;
 
     % Subject
-    if contains(name,'-J-'),          oeDatabase.subject{ff} = 'J';
-    elseif contains(name,'-B-'),      oeDatabase.subject{ff} = 'B';
+    if contains(name,'Jafter'),       oeDatabase.subject{ff} = 'Jafter'; 
     elseif contains(name,'-B_'),      oeDatabase.subject{ff} = 'B';
+    elseif contains(name,'-B-'),      oeDatabase.subject{ff} = 'B';
     elseif contains(name,'-Z-'),      oeDatabase.subject{ff} = 'Z';
-    elseif contains(name,'-Jafter-'), oeDatabase.subject{ff} = 'Jafter';
+    elseif contains(name,'-J-'),      oeDatabase.subject{ff} = 'J';
     elseif contains(name,'-D-'),      oeDatabase.subject{ff} = 'D';
     elseif contains(name,'-D_'),      oeDatabase.subject{ff} = 'D';
     else,                             oeDatabase.subject{ff} = 'Unknown';

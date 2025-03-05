@@ -1,6 +1,18 @@
 function files = ieTableGet(T,varargin)
 % Return the file names that match the conditions in varargin
 %
+% To do:  Maybe this should be ieTableFile because it returns the
+%         data files.
+%         We then write ieTableGet to return a subset of the table rows.
+%
+% Synopsis
+%   files = ieTableGet(T,varargin)
+%
+% Brief
+%   We manage data using tables with variables, in some cases.  The
+%   tables include a slot for the data file.  We use this interface to
+%   specify which rows of the table have the file of interest.
+%
 % Inputs
 %   T - A table 
 %
@@ -17,7 +29,7 @@ function files = ieTableGet(T,varargin)
 
 % Example:
 %{
-T = oeDatabase;
+T = oeDatabaseCreate;
 variableTypes = varfun(@class, T, 'OutputFormat', 'cell')
 
 files = ieTableGet(T,'ewave',415)
@@ -29,7 +41,8 @@ variableTypes = varfun(@class, T, 'OutputFormat', 'cell')
 files = ieTableGet(T,'ewave',415,'subject','J','substrate','tongue')
 variableTypes = varfun(@class, T, 'OutputFormat', 'cell')
 
-files = ieTableGet(T,'ewave',415,'subject','J','e level',910)
+% Only subjects Z and J
+files = ieTableGet(T,'operator','or','subject','Z','subject','J');
 variableTypes = varfun(@class, T, 'OutputFormat', 'cell')
 
 %}
@@ -51,6 +64,8 @@ for vv=1:numel(variableNames)
     thisV = variableNames{vv};
     thisT = variableTypes{vv};
     
+    % Doesn't deal with the case of two args for the same field, say
+    % subject Z and subject D.  
     if any(strcmp(thisV, varargin))
         passedV(vv) = 1;
         % User passed in a condition for this variable
@@ -70,7 +85,6 @@ idx = find(passedV);
 files = '';
 switch op
     case 'and'
-        % matchingFiles = T(strcmp(T.(, 'lettuce'), :);
         for ii=idx
             switch variableTypes{ii}
                 case 'string'
@@ -80,14 +94,26 @@ switch op
                     val = p.Results.(variableNames{ii});
                     tmp = T(T.(variableNames{ii}) == val,:).file;
             end
-            if isempty(files)
-                files = tmp;
-            else
-                files = findCommonStrings(files,tmp);
+            if isempty(files), files = tmp;
+            else,              files = findCommonStrings(files,tmp);
             end
         end
 
     case 'or'
+        for ii=idx
+            switch variableTypes{ii}
+                case 'string'
+                    val = p.Results.(variableNames{ii});
+                    tmp = T(strcmp(T.(variableNames{ii}),val),:).file;                    
+                case 'double'
+                    val = p.Results.(variableNames{ii});
+                    tmp = T(T.(variableNames{ii}) == val,:).file;
+            end
+            if isempty(files), files = tmp;
+            else,              files = cat(1,files,tmp);
+            end
+        end
+        files = unique(files);
 
     otherwise
         error('Unknown operator %s\n',op);
