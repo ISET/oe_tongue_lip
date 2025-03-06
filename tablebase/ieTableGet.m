@@ -1,9 +1,10 @@
 function files = ieTableGet(T,varargin)
 % Return the file names that match the conditions in varargin
 %
-% To do:  Maybe this should be ieTableFile because it returns the
-%         data files.
-%         We then write ieTableGet to return a subset of the table rows.
+% To do:  Maybe we make 'file' or some other variable as an optional
+%   return.  Otherwise, we could return the subset of table rows (default).
+%   Use this a lot:  rows = find(T.(variableNames{ii}) == val);
+%   and also intersect(rows1,rows2).
 %
 % Synopsis
 %   files = ieTableGet(T,varargin)
@@ -93,6 +94,7 @@ switch op
                 case 'double'
                     val = p.Results.(variableNames{ii});
                     tmp = T(T.(variableNames{ii}) == val,:).file;
+                    % rows = find(T.(variableNames{ii}) == val);
             end
             if isempty(files), files = tmp;
             else,              files = findCommonStrings(files,tmp);
