@@ -60,6 +60,8 @@ p = inputParser;
 p.addRequired('T',@istable);
 p.addParameter('operator','and',@(x)(ismember(x,{'and','or'})));
 
+% We have to loop over the varargin vals, not the variable Names.  If
+% the varargin entry is a variable name, then process it.
 passedV = zeros(size(variableNames));
 for vv=1:numel(variableNames)
     thisV = variableNames{vv};
@@ -83,25 +85,30 @@ end
 p.parse(T,varargin{:});
 op = p.Results.operator;
 idx = find(passedV);
-files = '';
+rows = '';
 switch op
     case 'and'
         for ii=idx
             switch variableTypes{ii}
                 case 'string'
                     val = p.Results.(variableNames{ii});
-                    tmp = T(strcmp(T.(variableNames{ii}),val),:).file;                    
+                    % tmp = T(strcmp(T.(variableNames{ii}),val),:).file; 
+                    tmp = find(T.(variableNames{ii}) == val);
                 case 'double'
                     val = p.Results.(variableNames{ii});
-                    tmp = T(T.(variableNames{ii}) == val,:).file;
-                    % rows = find(T.(variableNames{ii}) == val);
+                    % tmp = T(T.(variableNames{ii}) == val,:).file;
+                    tmp = find(T.(variableNames{ii}) == val);
             end
-            if isempty(files), files = tmp;
-            else,              files = findCommonStrings(files,tmp);
+
+            if isempty(rows), rows = tmp;
+            else,             rows = intersect(rows,tmp);
             end
         end
 
     case 'or'
+        disp('NY');
+        return;
+        %{
         for ii=idx
             switch variableTypes{ii}
                 case 'string'
@@ -116,7 +123,7 @@ switch op
             end
         end
         files = unique(files);
-
+        %}
     otherwise
         error('Unknown operator %s\n',op);
 end
