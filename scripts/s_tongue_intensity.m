@@ -80,4 +80,3 @@ xlabel('wavelength (nm');
 ylabel('Radiance (energy)');	
 xlim([400 800]);
 
-
