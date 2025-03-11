@@ -41,17 +41,16 @@ legend('Palero','Monici','Alfano','DaCosta');
 
 ieNewGraphWin;
 collagen = fiReadFluorophore('collagen1.mat','wave',wave); 
-plot(wave, collagen.emission/max(collagen.emission(:)),'r','LineWidth',2); hold on;
-collagen = fiReadFluorophore('CollagenWuQu.mat','wave',wave); 
+plot(wave, collagen1.emission/max(collagen1.emission(:)),'r','LineWidth',2); hold on;
+collagenWuAndQu = fiReadFluorophore('CollagenWuQu.mat','wave',wave); 
 plot(wave, collagen.emission/max(collagen.emission(:)),'g','LineWidth',2);
-collagen = fiReadFluorophore('CollagenPalero.mat','wave',wave);
+CollagenPalero = fiReadFluorophore('CollagenPalero.mat','wave',wave);
 plot(wave, collagen.emission/max(collagen.emission(:)),'b','LineWidth',2); hold on;
-collagen = fiReadFluorophore('CollagenMonici.mat','wave',wave);
-plot(wave, collagen.emission/max(collagen.emission(:)),'m','LineWidth',2); hold on;
-collagen = fiReadFluorophore('CollagenAlfano.mat','wave',wave);
+CollagenMonici = fiReadFluorophore('CollagenMonici.mat','wave',wave);
+plot(wave, Collagen.emission/max(Collagen.emission(:)),'m','LineWidth',2); hold on;
+CollagenAlfano = fiReadFluorophore('CollagenAlfano.mat','wave',wave);
 plot(wave, collagen.emission/max(collagen.emission(:)),'k','LineWidth',2); hold on;
 title('Collagen'); legend('DaCosta', 'WuQu','Palero','Monici','Alfano');
-xlim([500,700]);
 
 ieNewGraphWin;
 keratin = fiReadFluorophore('keratin.mat','wave',wave);
