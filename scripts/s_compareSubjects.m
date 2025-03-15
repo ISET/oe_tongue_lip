@@ -32,7 +32,7 @@ J_tongue_450 = ieReadSpectra('spd-2024-03-12-450nm-J-tongue-460mA-1.mat',waves);
 
 %% lip 405
 B_lip_405 = ieReadSpectra('spd-2024-03-19-B_405nm_lip_980mA.mat',waves);
-D_lip_405 = ieReadSpectra('spd-2024-03-19-D_4050nm_lip_980mA.mat',waves);
+D_lip_405 = ieReadSpectra('spd-2024-03-19-D_405nm_lip_980mA.mat',waves);
 Z_lip_405 = ieReadSpectra('spd-2024-03-14-Z-405nm_lip_980mA.mat',waves);
 J_lip_405 = ieReadSpectra('spd-2024-03-12-11-405nm-J-lip-980mA.mat',waves);
 
