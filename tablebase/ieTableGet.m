@@ -1,8 +1,8 @@
-function tableReturn = ieTableGet(T,varargin)
+function [files,tRows] = ieTableGet(T,varargin)
 % Return the rows that match the conditions in varargin
 %
 % Synopsis
-%   tableReturn = ieTableGet(T,varargin)
+%   [files,tableRows] = ieTableGet(T,varargin)
 %
 % Brief
 %   We sometimes manage data using tables with variables.  We use this
@@ -24,7 +24,8 @@ function tableReturn = ieTableGet(T,varargin)
 %            assocated with the rows. 
 %
 % Return
-%   tableReturn - String array of file names matching the condition(s)
+%   files - String array of file names matching the condition(s)
+%   tRows - The rows of the table that were selected
 %
 % Description:
 %
@@ -73,11 +74,9 @@ p.KeepUnmatched = true;
 
 p.addRequired('T',@istable);
 p.addParameter('operator','and',@(x)(ismember(x,{'and','or'})));
-p.addParameter('return','rows',@ischar);
 
 p.parse(T,varargin{:});
 op = p.Results.operator;
-tReturn = p.Results.return;
 
 %% Walk through conditions in varargin
 
@@ -117,13 +116,7 @@ for ii=1:2:numel(varargin)
     end
 end
 
-switch tReturn
-    case 'rows'
-        tableReturn = T(rows,:);
-    case {'files','file'}
-        tableReturn = T(rows,:).file;
-    otherwise
-        error('Unknown return type %s\n',tReturn);
-end
+tRows = T(rows,:);
+files = T(rows,:).file;
 
 end
