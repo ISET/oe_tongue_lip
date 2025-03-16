@@ -45,20 +45,18 @@ function [files,tRows] = ieTableGet(T,varargin)
 
 % Example:
 %{
-% 'and' case
+% ewave 415 or 450 and substrate tongue and subject J
 T = oeDatabaseCreate;
-tRows = ieTableGet(T,'ewave',415); size(tRows,1)
-tRows = ieTableGet(T,'subject','J'); size(tRows,1)
-tRows = ieTableGet(T,'ewave',415,'subject','J','substrate','tongue'); size(tRows,1)
-files = ieTableGet(T,'ewave',415,'subject','J','substrate','tongue','return','file')
+[~,tRows] = ieTableGet(T,'ewave',415,'ewave',450,'operator','or');
+files = ieTableGet(tRows,'substrate','tongue','subject','J');
+disp(files);
 %}
 %{
-% 'or' case
+% Subject J or Z.  Ewave 405 or 415.  Substrate tongue.
 T = oeDatabaseCreate;
-tRows = ieTableGet(T,'subject','Z');size(tRows,1)
-tRows = ieTableGet(T,'subject','J');size(tRows,1)
-tRows = ieTableGet(T,'operator','or','subject','Z','subject','J');size(tRows,1)
-files = ieTableGet(T,'operator','or','subject','Z','subject','J','return','files');size(files,1)
+[~,tRows] = ieTableGet(T,'subject','J','subject','Z','operator','or');
+[~,tRows] = ieTableGet(tRows,'ewave',405,'ewave',415,'operator','or');
+[files,tRows] = ieTableGet(tRows,'substrate','tongue');
 %}
 
 %% Parse

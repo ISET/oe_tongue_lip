@@ -11,7 +11,7 @@ function [data, normalized] = oeReadFiles(filelist,varargin)
 %
 % Return
 %   data -     - Data in the columns.  Units are energy (watts/sr/nm/m2)
-%   normalized - Normalization value at nwave
+%   normalized - Data are scaled to 1 at the normalized wave
 %
 % See also
 %   oeFigure1_compareSubjects
