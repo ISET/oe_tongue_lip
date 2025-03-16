@@ -39,12 +39,12 @@ y_led405nm450spf = [L_led405nm450spf_50mA, L_led405nm450spf_100mA, L_led405nm450
 
 % % Plotting the results
 figure;  %hold on% Creates a new figure window
-plot(x_led405nm450spf, y_led405nm450spf, '-o');
+loglog(x_led405nm450spf, y_led405nm450spf, '-o');
 title('Radiance vs. Current for LED 405nm with 450SPF');
 xlabel('Current (mA)');
 ylabel('Radiance');
 grid on; % Adds a grid to the plot for easier visualization
-
+identityLine;
 %% 415nm 
 % Correctly loading the spectral power distribution data for each current level
 led415nm450spf_50mA = load('spd-2024-03-07-Calib-415nm450SPF-50mA.mat');
@@ -76,12 +76,12 @@ y_led415nm450spf = [L_led415nm450spf_50mA, L_led415nm450spf_70mA, L_led415nm450s
 
 % % Plotting the results with a different color
 figure; % Creates a new figure window
-plot(x_led415nm450spf, y_led415nm450spf, '-o', 'Color', 'r'); % Using red color for distinction
+loglog(x_led415nm450spf, y_led415nm450spf, '-o', 'Color', 'r'); % Using red color for distinction
 title('Radiance vs. Current for LED 415nm with 450SPF');
 xlabel('Current (mA)');
 ylabel('Radiance');
 grid on; % Adds a grid to the plot for easier visualization
-
+identityLine;
 %% 425nm
 % Correctly loading the spectral power distribution data for each current level
 led425nm450spf_50mA = load('spd-2024-03-07-Calib-425nm450SPF-50mA.mat');
@@ -142,12 +142,12 @@ y_led450nm450spf = [L_led450nm450spf_50mA, L_led450nm450spf_100mA, L_led450nm450
 
 % % Plotting the results
 figure; % Creates a new figure window
-plot(x_led450nm450spf, y_led450nm450spf, '-o', 'Color', 'c'); % Using cyan color for distinction
+loglog(x_led450nm450spf, y_led450nm450spf, '-o', 'Color', 'c'); % Using cyan color for distinction
 title('Radiance vs. Current for LED 450nm with 450SPF');
 xlabel('Current (mA)');
 ylabel('Radiance');
 grid on; % Adds a grid to the plot for easier visualization
-
+identityLine;
 %% ------Plot all lights
 
 figure; % Creates a new figure window

@@ -68,10 +68,9 @@ variableNames = T.Properties.VariableNames;
 variableTypes = varfun(@class, T, 'OutputFormat', 'cell');
 
 p = inputParser;
-p.KeepUnmatched = true;
-
 p.addRequired('T',@istable);
 p.addParameter('operator','and',@(x)(ismember(x,{'and','or'})));
+p.KeepUnmatched = true;
 
 p.parse(T,varargin{:});
 op = p.Results.operator;
