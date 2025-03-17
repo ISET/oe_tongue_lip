@@ -6,12 +6,14 @@ function [data, normalized] = oeReadFiles(filelist,varargin)
 %
 % Optional key/val
 %   waves  - Wavelength samples (nm)
-%   normalized wave - If empty, no normalization.  Otherwise normalize by
-%                     the value at this wavelength (Default: empty)
+%   normalized wave - If empty, no normalization.  If zero, normalize to so
+%                     that max is 1. Otherwise normalize by the value at
+%                     this wavelength (Default: empty)
 %
 % Return
 %   data -     - Data in the columns.  Units are energy (watts/sr/nm/m2)
-%   normalized - Data are scaled to 1 at the normalized wave
+%   normalized - Data are scaled to 1 at the specified normalized
+%                wavelength. This is the scalar used to normalize
 %
 % See also
 %   oeFigure1_compareSubjects
@@ -35,8 +37,13 @@ normalized = zeros(numel(filelist),1);
 for ii=1:numel(filelist)
     data(:,ii) = ieReadSpectra(filelist(ii),waves);
     if ~isempty(nwave)
-        normalized(ii) = data(waves==nwave,ii);
-        data(:,ii) = data(:,ii)/normalized(ii);
+        if nwave == 0
+            % Use the max
+            data(:,ii) = data(:,ii)/max(data(:,ii));
+        else
+            normalized(ii) = data(waves==nwave,ii);
+            data(:,ii) = data(:,ii)/normalized(ii);
+        end
     end
 end
 
