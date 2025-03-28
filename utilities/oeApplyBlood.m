@@ -4,10 +4,16 @@ function fluorophores = oeApplyBlood(fluorophores,fluorophoreNames,oxyblood)
 % Synopsis
 %
 % Input
+%   fluorophores - Matrix with fluorophores in the columns
+%   fluorophoreNames - collagen and elastin get the blood
+%   oxyblood - medium type object defining blood
 %
 % Output
+%   fluorophores - Matrix with modified fluorophores
 %
 % Description
+%   We apply the bloody transmittance, defined by the od of the oxyblood
+%   object, to the collagen and elastin columns of the fluorophore matrix.
 %
 %
 % See also
