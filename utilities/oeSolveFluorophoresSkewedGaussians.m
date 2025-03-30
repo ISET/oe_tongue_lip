@@ -1,7 +1,10 @@
 function [global_params, weights, Gaussians] = oeSolveFluorophoresSkewedGaussians(wave, data, oxyTransmittance)
-% FIT_MULTIPLE_SPECTRA_NONNEG Fits a weighted sum of three skewed Gaussians to multiple spectra.
-% Uses the same mu, sigma, and a across all spectra but allows weights to vary per spectrum.
-% The weights are constrained to be non-negative.
+% oeSolveFluorophoresSkewedGaussians - Fits a weighted sum of three skewed
+% Gaussians to multiple spectra. 
+% 
+% Brief Description
+%  Uses the same mu, sigma, and a across all spectra but allows weights to
+%  vary per spectrum. The weights are constrained to be non-negative.
 %
 % Inputs:
 %   wave - vector of x-values
@@ -9,14 +12,21 @@ function [global_params, weights, Gaussians] = oeSolveFluorophoresSkewedGaussian
 %   oxyTransmittance - must be the same length as wave
 %
 % Outputs:
-%   global_params - fitted parameters [mu1, sigma1, a1, mu2, sigma2, a2, mu3, sigma3, a3]
-%   weights - matrix of non-negative weights (3 x num_spectra) for each spectrum
-%
+%   global_params - Fitted parameters [means, sds, skews]
+%   weights   - Matrix of non-negative weights (3 x num_spectra) for each spectrum
+%   Gaussians - Matrix of skewed Gaussians with blood applied the first
+%               column
 % See also
+%
+%
+% TODO
+%  Enable setting how many skewed Gaussians to create.  From 2 to maybe 4
+%  would be a good range.
 %
 
 % Example:
 %{
+
 wave = linspace(400, 700, 100); % Example x-values (e.g., wavelengths)
 data = rand(100, 10); % Replace with actual spectral data (100 points, 5 spectra)
 
@@ -73,7 +83,11 @@ ub = [650 650 650, 200, 200, 200, 15, 15, 15];
 % Objective function for optimizing the shared parameters
     function err = fit_global_params(p)
         Gaussians = skewed_gaussians(p, wave);
+
+        % Always apply blood transmittance to the first column
         Gaussians(:,1) = Gaussians(:,1).*oxyTransmittance;
+
+        % Now solve for the weights
         weights = zeros(3, num_spectra);
 
         % Solve for non-negative weights using lsqnonneg for each spectrum
@@ -81,8 +95,9 @@ ub = [650 650 650, 200, 200, 200, 15, 15, 15];
             weights(:, j) = lsqnonneg(Gaussians, data(:, j));
         end
 
+        % This is the error accumulated across all the data
         approx_S = Gaussians * weights;  % Reconstruct spectra
-        err = data(:) - approx_S(:);  % Flatten error for optimization
+        err = data(:) - approx_S(:);     % Flatten error for optimization
     end
 
 % Optimize shared parameters
