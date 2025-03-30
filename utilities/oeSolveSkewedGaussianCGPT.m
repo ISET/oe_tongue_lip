@@ -14,12 +14,27 @@ function params = oeSolveSkewedGaussianCGPT(x, E)
 %  ieSkewedGaussian
 
 %{
+wave = 350:5:700;
+thisF = fiReadFluorophore('KeratinWuQu','wave',wave);
+emission = fluorophoreGet(thisF,'emission');
+params = oeSolveSkewedGaussianCGPT(wave,emission);
+estimate = ieSkewedGaussian(params,wave);
+ieFigure; plot(wave,emission,'r-',...
+wave,estimate,'bo-', 'LineWidth',2);
+legend({'emission','estimate'});
+grid on;
+%}
+%{
 wave = 400:10:700;
 D = daylight(wave,6000,'energy')';
 estimates = oeSolveSkewedGaussianCGPT(wave,D);
 DFit = ieSkewedGaussian(estimates,wave);
-ieFigure; plot(wave,D,'k-',wave,DFit,'r:');
+ieFigure; plot(wave,D,'r-',wave,DFit,'bo-','LineWidth',2);
+legend({'daylight','estimate'});
+grid on;
 %}
+
+x = x(:); E = E(:);
 
 % Initial guess for parameters: [mu, sigma, a]
 mu0 = mean(x);

@@ -20,6 +20,11 @@ tongueData = oeReadFiles(tongueFiles,'normalized wave',normWave,'wave',wave);
 % plot(wave,oxyTransmittance);
 
 [global_params, wgtsNN, Gaussians] = oeSolveFluorophoresSkewedGaussians(wave, tongueData, oxyTransmittance);
+ieFigure; 
+for ii=1:3
+    estimate = ieSkewedGaussian(global_params(ii:3:end),350:700);
+    plot(350:700,estimate/max(estimate)); hold on;
+end
 
 disp('Optimized Gaussian Parameters:');
 disp(global_params);
