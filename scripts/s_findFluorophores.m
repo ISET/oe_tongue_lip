@@ -94,5 +94,60 @@ plot(wave,tongueData,'k-',wave,skewedG*wgtsNN,'k:');
 grid on; title(sprintf('NN, Blood, %s',subjects{ss}));
 title(sprintf('All subjects'));
 
-%%
+%% Fit all the subjects at once for both tongue and lip
 
+Tfiles405 = ieTableGet(T,'substrate','tongue','e wave',405,'e level',980);
+Lfiles405 = ieTableGet(T,'substrate','lip','e wave',405,'e level',980);
+
+Tfiles415 = ieTableGet(T,'substrate','tongue','e wave',415,'e level',910);
+Lfiles415 = ieTableGet(T,'substrate','lip','e wave',415,'e level',910);
+
+allFiles = cat(1,Tfiles405,Tfiles415,Lfiles405,Lfiles415);
+allData = oeReadFiles(allFiles,'normalized wave',normWave,'wave',wave);
+
+% plot(wave,oxyTransmittance);
+
+[global_params, wgtsNN, skewedG] = oeSolveFluorophoresSkewedGaussians(wave, allData, oxyTransmittance);
+disp('Optimized Gaussian Parameters:');
+disp(global_params);
+
+disp('Non-Negative Weights for each spectrum:');
+disp(wgtsNN);
+
+ieFigure;
+mx = max(skewedG);
+plot(wave,skewedG*diag(1./mx),'LineWidth',2);
+title('Fluorophores: Blood');
+lgn = legend({num2str(round(global_params(1))),num2str(round(global_params(2))),num2str(round(global_params(3)))});
+grid on;
+
+%{
+hdl = ieFigure;
+for ii=1:3
+    estimate = ieSkewedGaussian(global_params(ii:3:end),wave);
+    plot(wave,estimate/max(estimate)); hold on;
+end
+title('Fluorophores: No blood')
+%}
+
+% This is the error.
+% fitError = tongueData - Gaussians*weights;
+% rmserror = norm(fitError(:),2);
+% disp('RMSE');
+% disp(rmserror);
+
+ieFigure([],'wide');
+tiledlayout(1,2);
+nexttile;
+plot(wave,allData,'k-',wave,skewedG*wgtsNN,'k:');
+grid on; title(sprintf('NN, Blood, %s',subjects{ss}));
+title(sprintf('All subjects'));
+
+tmp = skewedG*wgtsNN;
+nexttile; 
+scatter(allData(:),tmp(:),'b.');
+identityLine;
+grid on;
+xlabel('Data'); ylabel('Predicted');
+
+%%

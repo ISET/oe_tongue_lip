@@ -57,8 +57,10 @@ assert(numel(oxyTransmittance) - size(data,1) == 0);
 
 num_spectra = size(data, 2);  % Number of spectra
 
-% Initial guesses for shared parameters
-mu0    = linspace(min(wave), max(wave), 3);  % Evenly spaced initial guesses for mu
+% Initial guesses for shared parameters.
+% Collagen, keratin, FAD
+mu0 = [430 475 530];
+% mu0    = linspace(min(wave), max(wave), 3);  % Evenly spaced initial guesses for mu
 sigma0 = std(wave) * [0.5, 1, 1.5];  % Different scales for sigma
 a0     = [0, 0, 0];  % Initial skewness
 
@@ -66,8 +68,9 @@ a0     = [0, 0, 0];  % Initial skewness
 p0 = [mu0, sigma0, a0];
 
 % Lower and upper bounds for shared parameters
-lb = [350, 350, 350, 10, 10, 10, -15, -15, -15];
-ub = [650 650 650, 200, 200, 200, 15, 15, 15];
+% We set the peaks to be near collagen (), Keratin
+lb = [350, 400, 450, 10, 10, 10, -15, -15, -15];
+ub = [450  550  550, 200, 200, 200, 15, 15, 15];
 
 % We will change this to incorporate blood.
     function Gaussians = skewed_gaussians(p, x)
@@ -101,7 +104,15 @@ ub = [650 650 650, 200, 200, 200, 15, 15, 15];
     end
 
 % Optimize shared parameters
-options = optimset('Display', 'off');
+% options = optimset('Display', 'off');
+% {
+options = optimset('Display', 'off', ...  % Show progress at each iteration
+                   'MaxIter', 5000, ...  % Increase the number of iterations
+                   'MaxFunEvals', 25000, ...  % Increase function evaluations
+                   'TolFun', 1e-4, ...  % Tighter function tolerance (encourages finer tuning)
+                   'TolX', 1e-4);       % Tighter parameter tolerance (better precision)
+
+%}
 global_params = lsqnonlin(@fit_global_params, p0, lb, ub, options);
 
 % Compute final non-negative weights using lsqnonneg
