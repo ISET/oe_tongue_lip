@@ -34,7 +34,8 @@ for ss = 1:numel(subjects)  % Which subject
     disp(global_params);
     
     ieFigure;
-    plot(wave,skewedG);
+    mx = max(skewedG);
+    plot(wave,skewedG*diag(1./mx));
     title('Fluorophores: Blood');
 
     disp('Non-Negative Weights for each spectrum:');
@@ -42,8 +43,8 @@ for ss = 1:numel(subjects)  % Which subject
 
     ieFigure;
     for ii=1:3
-        estimate = ieSkewedGaussian(global_params(ii:3:end),350:700);
-        plot(350:700,estimate/max(estimate)); hold on;
+        estimate = ieSkewedGaussian(global_params(ii:3:end),wave);
+        plot(wave,estimate/max(estimate)); hold on;
     end
     title('Fluorophores: No blood')
 
