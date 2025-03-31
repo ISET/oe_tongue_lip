@@ -33,21 +33,19 @@ for ss = 1:numel(subjects)  % Which subject
     disp('Optimized Gaussian Parameters:');
     disp(global_params);
     
+    ieFigure;
+    plot(wave,skewedG);
+    title('Fluorophores: Blood');
+
     disp('Non-Negative Weights for each spectrum:');
     disp(wgtsNN);
 
-    hdl = ieFigure;
+    ieFigure;
     for ii=1:3
         estimate = ieSkewedGaussian(global_params(ii:3:end),350:700);
         plot(350:700,estimate/max(estimate)); hold on;
     end
-    title('Estimated fluorophore emissions')
-
-    % This is the error.
-    % fitError = tongueData - Gaussians*weights;
-    % rmserror = norm(fitError(:),2);
-    % disp('RMSE');
-    % disp(rmserror);
+    title('Fluorophores: No blood')
 
     ieFigure;
     plot(wave,tongueData,'k-',wave,skewedG*wgtsNN,'k:');
@@ -72,12 +70,17 @@ disp(global_params);
 disp('Non-Negative Weights for each spectrum:');
 disp(wgtsNN);
 
+ieFigure;
+mx = max(skewedG);
+plot(wave,skewedG*diag(1./mx));
+title('Fluorophores: Blood');
+
 hdl = ieFigure;
 for ii=1:3
-    estimate = ieSkewedGaussian(global_params(ii:3:end),350:700);
-    plot(350:700,estimate/max(estimate)); hold on;
+    estimate = ieSkewedGaussian(global_params(ii:3:end),wave);
+    plot(wave,estimate/max(estimate)); hold on;
 end
-title('Estimated fluorophore emissions')
+title('Fluorophores: No blood')
 
 % This is the error.
 % fitError = tongueData - Gaussians*weights;
