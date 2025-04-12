@@ -68,30 +68,51 @@ num_spectra = size(data, 2);  % Number of spectra
 % general.  If we want to just find 2 fluorophores for the lip, we need a
 % separate version.
 
-% Initial guesses for shared parameters.
-% Collagen, keratin, FAD
-mu0 = [430 475 530];
-% mu0    = linspace(min(wave), max(wave), 3);  % Evenly spaced initial guesses for mu
-sigma0 = std(wave) * [0.5, 1, 1.5];  % Different scales for sigma
-a0     = [0, 0, 0];  % Initial skewness
 
-% List of 9 parameters
+%% Initial guesses for shared parameters. 
+
+% We have to edit this function to say how many skewedG we are fitting to
+% the data.  And we have to set the various initial guesses for the
+% parameters.  Here.
+
+% These are the parameter values estimated for
+% Collagen, NADH, FAD and Keratin
+% These skewed Gaussian parameter estimates were obtained by using the
+% function oeSolveSkewedGaussianCGPT
+% CollagenWuQU:  476.9900   54.4317   -0.0069
+%
+nSkewedG = 4;
+mu0    = [430 475 530];
+a0     = [0, 0, 0];  % Initial skewness
+sigma0 = std(wave) * [0.5, 1, 1.5];  % Different scales for sigma
+
+%% Merge the list of parameters
 p0 = [mu0, sigma0, a0];
 
 % Lower and upper bounds for shared parameters
-% We set the peaks to be near collagen (), Keratin
-lb = [350, 400, 450, 10, 10, 10, -15, -15, -15];
-ub = [450  550  550, 200, 200, 200, 15, 15, 15];
+lb = [mu0 - 50,  10*ones(1,nSkewedG), -15*ones(1,nSkewedG)];
+ub = [mu0 + 50, 200*ones(1,nSkewedG),  15*ones(1,nSkewedG)];
 
 % We will change this to incorporate blood.
     function Gaussians = skewed_gaussians(p, x)
-        skewed_gaussian = @(mu, sigma, a, x) ...
-            (normpdf((x - mu) / sigma) .* (1 + normcdf(a * x)))'; % Transpose to ensure column output
 
-        % Ensure Gaussians is a matrix with columns as separate functions
-        Gaussians = [skewed_gaussian(p(1), p(4), p(7), x), ...
-            skewed_gaussian(p(2), p(5), p(8), x), ...
-            skewed_gaussian(p(3), p(6), p(9), x)];
+        % Transpose to ensure column output
+        skewed_gaussian = @(mu, sigma, a, x) ...
+            (normpdf((x - mu) / sigma) .* (1 + normcdf(a * x)))'; 
+
+        % Ensure Gaussians is a matrix with columns as separate functions.
+        % We make as many Skewed Gaussians as their are parameters
+        
+        Gaussians = skewed_gaussian(p(1), p(4), p(7), x);
+        for ii=2:nSkewedG
+            Gaussians = [Gaussians,skewed_gaussian(p(ii),p(ii+3),p(ii+6))]; %#ok<AGROW>
+        end
+
+        % This was the case of 3 skewed Gaussians.  With the new code we
+        % can have 2, 3, 4 or more.
+        % Gaussians = [skewed_gaussian(p(1), p(4), p(7), x), ...
+        %     skewed_gaussian(p(2), p(5), p(8), x), ...
+        %     skewed_gaussian(p(3), p(6), p(9), x)];
     end
 
 % Objective function for optimizing the shared parameters
