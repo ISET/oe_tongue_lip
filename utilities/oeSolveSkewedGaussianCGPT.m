@@ -15,7 +15,9 @@ function params = oeSolveSkewedGaussianCGPT(x, E)
 
 %{
 wave = 350:5:700;
-thisF = fiReadFluorophore('CollagenWuQu','wave',wave);
+thisF = fiReadFluorophore('CollagenWuQu','wave',wave);  %  510.0000   42.5136    0.1975
+thisF = fiReadFluorophore('collagen1-smooth','wave',wave);
+
 thisF = fiReadFluorophore('KeratinWuQu','wave',wave);
 thisF = fiReadFluorophore('NADHWuQu','wave',wave);
 thisF = fiReadFluorophore('FADWuQu','wave',wave);
@@ -26,6 +28,7 @@ estimate = ieSkewedGaussian(params,wave);
 ieFigure; plot(wave,emission,'r-',...
 wave,estimate,'bo-', 'LineWidth',2);
 legend({'emission','estimate'});
+title(sprintf('Name: %s',thisF.name));
 grid on;
 %}
 %{
