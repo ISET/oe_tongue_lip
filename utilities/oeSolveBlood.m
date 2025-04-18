@@ -1,8 +1,8 @@
-function [global_params, weights, finalFluorophores] = oeSolveJoint(wave, data, fixedFluorophores, varargin)
-% oeSolveJoint - Fits a fixed matrix to joint lip and tongue data.
+function [global_params, weights, finalFluorophores] = oeSolveBlood(wave, data, fixedFluorophores, varargin)
+% oeSolveBlood - Finds the blood optical density
 %
 % Synopsis
-%   [global_params, weights, finalFluorophores] = oeSolveJoint(wave, data, fixedFluorophores, varargin)
+%   [global_params, weights, finalFluorophores] = oeSolveBlood(wave, data, fixedFluorophores, varargin)
 %
 % Brief Description
 %  We take a fixed set of fluorophores in.  We modify the first column,
@@ -16,7 +16,7 @@ function [global_params, weights, finalFluorophores] = oeSolveJoint(wave, data, 
 %   fixedFluorophores - must be the same length as wave
 %
 % Optional key/val
-%   initialparameters -  vector of od0, mu0, sigma0, a0
+%   initialparameters -  initial optical density
 %
 % Outputs:
 %   global_params - Fitted parameters [oxy, mean, sd, skew]
@@ -41,34 +41,23 @@ p = inputParser;
 p.addRequired('wave',@isvector);
 p.addRequired('data',@ismatrix);
 p.addRequired('fixedFluorophores',@ismatrix);
-p.addParameter('initialparameters',[],@isvector);
+p.addParameter('initialparameters',[],@isnumeric);
 
 p.parse(wave,data,fixedFluorophores,varargin{:});
 
 %% Initial guesses for parameters.
 if isempty(p.Results.initialparameters)
-    od0    = 10;   % Initial guess at blood oxygen
-    mu0    = 475;  % Center wavelength in nm
-    sigma0 = 50;   % Standard deviation
-    a0     = 5;    % Initial skewness
+    od0    = 10;   % Initial guess at blood oxygen   
 else
-    initial = p.Results.initialparameters;
-    od0 = initial(1);
-    mu0 = initial(2);
-    sigma0 = initial(3);
-    a0 = initial(4);
+    od0 = p.Results.initialparameters;
 end
 
 %% Merge the parameters
-p0 = [od0, mu0, sigma0, a0];
+p0 = od0;
 
 % Lower and upper bounds for parameters
-lb = [0  mu0 - 50,  10, -15];
-ub = [50 mu0 + 50, 500,  15];
-
-% Inline function to calculate skewed Gaussian
-skewed_gaussian = @(mu, sigma, a, x) ...
-    (normpdf((x - mu) / sigma) .* (1 + normcdf(a * x)))';
+lb = 0;  
+ub = 50;
 
 num_spectra = size(data,2);
 
@@ -84,13 +73,9 @@ num_spectra = size(data,2);
         % skewed Gaussian.
         finalFluorophores = fixedFluorophores;
         finalFluorophores(:,1) = fixedFluorophores(:,1).*oxyTransmittance;
-
         
-        skewedG = skewed_gaussian(p(2),p(3),p(4),wave);
-        finalFluorophores = cat(2,finalFluorophores,skewedG);
-
         % Solve for non-negative weights using lsqnonneg for each spectrum
-        weights = zeros(5, num_spectra);
+        weights = zeros(size(finalFluorophores,2), num_spectra);
         for kk = 1:num_spectra
             weights(:, kk) = lsqnonneg(finalFluorophores, data(:, kk));
         end
@@ -112,18 +97,9 @@ oxyblood = medium('oxy_molarExtinctionCoefficient.mat','wave',wave);
 global_params = lsqnonlin(@fit_global_params, p0, lb, ub, options);
 
 % We have the global parameter fit.
-%
-
-% % Modified the first column with blood oxygenation
-% oxyblood.opticalDensity = global_params(1);
-% oxyTransmittance = oxyblood.transmittance;
-% finalFluorophores(:,1) = fixedFluorophores(:,1).*oxyTransmittance;
-% 
-% % Add the skewed gaussian column
-% finalFluorophores = cat(2,finalFluorophores,skewed_gaussian(global_params(2),global_params(3),global_params(4), wave));
 
 % Compute non-negative weights using lsqnonneg
-weights = zeros(5, num_spectra);
+weights = zeros(size(finalFluorophores,2), num_spectra);
 for k = 1:num_spectra
     weights(:, k) = lsqnonneg(finalFluorophores, data(:, k));
 end
