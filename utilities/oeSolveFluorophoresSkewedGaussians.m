@@ -20,12 +20,11 @@ function [global_params, weights, Gaussians] = oeSolveFluorophoresSkewedGaussian
 %
 %
 % TODO
-%  Enable setting how many skewed Gaussians to create.  From 2 to maybe 4
-%  would be a good range.
 %
-% This code is designed to find 3 fluorophores for the tongue.  The code is
-% not general.  If we want to just find 2 fluorophores for the lip, we need
-% a separate version.
+% This code was recently updated designed to find different numbers of
+% skewedG by setting an internal parameter. The function should be
+% reorganized so that nSkewewdG is sent in as a parameter, though.  And it
+% should be tested more.
 %
 % See also
 %
