@@ -38,7 +38,7 @@ for ff = 1:numel(dataFiles)
     % Date
     oeDatabase.date{ff}  = name(5:14);
 
-    % File
+    % Files
     oeDatabase.file{ff}  = name;
 
     % Subject
@@ -53,11 +53,9 @@ for ff = 1:numel(dataFiles)
     end
 
     % Substrate
-    if contains(name,'lip'),        oeDatabase.substrate(ff) = 'lip';
-    elseif contains(name,'Lip'),    oeDatabase.substrate(ff) = 'lip';
-    elseif contains(name,'tongue'), oeDatabase.substrate(ff) = 'tongue';
-    elseif contains(name,'Tongue'), oeDatabase.substrate(ff) = 'tongue';
-    elseif contains(name,'lettuce'), oeDatabase.substrate(ff) = 'lettuce';
+    if contains(lower(name),'lip'),        oeDatabase.substrate(ff) = 'lip';
+    elseif contains(lower(name),'tongue'), oeDatabase.substrate(ff) = 'tongue';
+    elseif contains(lower(name),'lettuce'), oeDatabase.substrate(ff) = 'lettuce';
     else, oeDatabase.substrate{ff} = 'unknown';
     end
 
