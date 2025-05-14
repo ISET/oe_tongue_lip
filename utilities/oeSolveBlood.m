@@ -5,10 +5,9 @@ function [global_params, weights, finalFluorophores] = oeSolveBlood(wave, data, 
 %   [global_params, weights, finalFluorophores] = oeSolveBlood(wave, data, fixedFluorophores, varargin)
 %
 % Brief Description
-%  We take a fixed set of fluorophores in.  We modify the first column,
-%  which is typically collagen1-smooth, to account for blood optical
-%  density.  We then add an extra column that is a skewedGaussian.  We
-%  search for the skewed Gaussian parameters.
+%  We take a fixed set of fluorophores in.  We modify the first
+%  column, which is typically collagen1-smooth, to account for blood
+%  optical density.
 %
 % Inputs:
 %   wave - vector of x-values
@@ -27,7 +26,7 @@ function [global_params, weights, finalFluorophores] = oeSolveBlood(wave, data, 
 %           column
 %
 % See also
-%
+%   oeSolveJoint
 
 % Example:
 %{
