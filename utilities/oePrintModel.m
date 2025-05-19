@@ -5,8 +5,9 @@ function oePrintModel(fluorophoreNames,od,weights,NperSubject)
 %   oePrintModel(fluorophoreNames, od, weights, NperSubject)
 %
 % Input
-%   fluorophoreNames -
-%   od - Optical density for each subject
+%   fluorophoreNames - A string, like ["name1","name2", ...];  If it is a
+%                      cell array I will convert it to a string array.
+%   od       - Optical density for each subject
 %   weights  - cell array of the matrices of weights.  Each row is a tissue
 %              type and each column is a weight corresponding to each of
 %              the fluorophores
@@ -20,6 +21,8 @@ function oePrintModel(fluorophoreNames,od,weights,NperSubject)
 %
 % See also
 %
+
+if iscell(fluorophoreNames), fluorophoreNames = string(fluorophoreNames); end
 
 nSubjects = numel(weights);
 meanWeights = cell(nSubjects,1);
