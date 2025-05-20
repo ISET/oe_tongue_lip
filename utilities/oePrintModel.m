@@ -1,5 +1,5 @@
 function oePrintModel(fluorophoreNames,od,weights,NperSubject)
-% Print od, fluorophore weights and N samples for each subject
+% Print log10(od), fluorophore weights and N samples for each subject
 %
 % Synopsis
 %   oePrintModel(fluorophoreNames, od, weights, NperSubject)
@@ -20,7 +20,7 @@ function oePrintModel(fluorophoreNames,od,weights,NperSubject)
 %    The printout includes mean weights and standard deviation.
 %
 % See also
-%
+%   oeFigure5_ModelFits
 
 if iscell(fluorophoreNames), fluorophoreNames = string(fluorophoreNames); end
 
@@ -37,7 +37,7 @@ end
 % fluorophoreNames = ["Collagen", "FAD", "Keratin", "Porphyrin", "Chlorophyll-a"];
 for ii = 1:nSubjects
     fprintf('Subject %d (N=%d):\n', ii,NperSubject(ii));
-    fprintf('Blood od %0.2f  ',od(ii));
+    fprintf('Blood log10(od) %0.2f  ',log10(od(ii)));
     for jj = 1:size(meanWeights{ii}, 1)
         fprintf('%s: %.2f %c %.2f ', fluorophoreNames(jj), meanWeights{ii}(jj), char(177), stdWeights{ii}(jj));
     end
