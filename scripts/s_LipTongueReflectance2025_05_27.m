@@ -71,4 +71,10 @@ plot(wave,BW_lipReflectance,'r--','LineWidth',2);
 plot(wave,JF_lipReflectance,'g--','LineWidth',2);
 
 
-
+% comment = 'mean tongue reflectance calculated from data measured on 2025-05-27';
+% ieSaveSpectralFile(wave,BW_tongueReflectance,comment);
+% ieSaveSpectralFile(wave,JF_tongueReflectance,comment);
+% 
+% comment = 'mean lip reflectance calculated from data measured on 2025-05-27';
+% ieSaveSpectralFile(wave,BW_lipReflectance,comment);
+% ieSaveSpectralFile(wave,JF_lipReflectance,comment);
