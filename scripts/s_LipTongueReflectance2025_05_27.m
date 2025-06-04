@@ -1,9 +1,17 @@
 % s_LipTongueReflectance2025_05_27
 %%
+%{
 cd /Users/joyce/Github/isetcam;
 addpath(genpath(pwd));
 cd /users/joyce/Github/oe_tongue_lip/;
 addpath(genpath(pwd));
+S1 - J
+S2 - Z
+S3 - B
+S4 - D
+%}
+
+%%
 ieInit;
 wave = 380:5:750;
 
@@ -18,8 +26,9 @@ B_tongue = zeros(length(wave),3);
 B_tongue(:,1) = ieReadSpectra('BrianTongue1-R01.mat', wave); 
 B_tongue(:,2) = ieReadSpectra('BrianTongue1-R02.mat', wave); 
 B_tongue(:,3) = ieReadSpectra('BrianTongue1-R03.mat', wave); 
+S3_tongueReflectance = mean(B_tongue,2) ./ mean(BwhiteRef,2);
 % ieFigure; plot(wave,B_tongue);
-BW_tongueReflectance = mean(B_tongue,2) ./ mean(BwhiteRef,2);
+% plotReflectance(wave,S3_tongueReflectance);
 
 B_lip = zeros(length(wave),4);
 % use the last two measurements
@@ -27,9 +36,11 @@ B_lip(:,1) = ieReadSpectra('BrianLi21-R01-R01-R01.mat', wave);
 B_lip(:,2) = ieReadSpectra('BrianLi21-R01-R01-R02.mat', wave); 
 B_lip(:,3) = ieReadSpectra('BrianLip1-R01-R01.mat', wave); 
 B_lip(:,4) = ieReadSpectra('BrianLip1-R01-R02.mat', wave); 
+S3_lipReflectance = mean(B_lip,2) ./ mean(BwhiteRef,2);
 % ieFigure; plot(wave,B_lip); hold on;
-BW_lipReflectance = mean(B_lip,2) ./ mean(BwhiteRef,2);
+% plotReflectance(wave,S3_lipReflectance);
 
+%%
 JwhiteRef = zeros(length(wave),3);
 JwhiteRef(:,1) = ieReadSpectra('joyce-light-calibration-R01.mat', wave); 	
 JwhiteRef(:,2) = ieReadSpectra('joyce-light-calibration-R02.mat', wave); 
@@ -45,36 +56,51 @@ J_tongue = zeros(length(wave),2);
 J_tongue(:,1) = ieReadSpectra('joyce-tongue-2-R01-R01.mat', wave); 	plot(wave,J_tongue,'k');
 J_tongue(:,2) = ieReadSpectra('joyce-tongue-2-R01-R02.mat', wave);plot(wave,J_tongue,'k');
 % ieFigure; plot(wave,J_tongue );
-JF_tongueReflectance = mean(J_tongue,2) ./ mean(JwhiteRef,2);
+S1_tongueReflectance = mean(J_tongue,2) ./ mean(JwhiteRef,2);
 
 J_lip = zeros(length(wave),2);
 J_lip(:,1) = ieReadSpectra('joyce-lip-1-R01.mat', wave); 
 J_lip(:,2) = ieReadSpectra('joyce-lip-1-R02.mat', wave);
 % ieFigure; plot(wave,J_lip);
-JF_lipReflectance = mean(J_lip,2) ./ mean(JwhiteRef,2);
+S1_lipReflectance = mean(J_lip,2) ./ mean(JwhiteRef,2);
 
 %% Compare the tongue data to data I collected in 2019
 tongue = ieReadSpectra('tongue.mat',wave); 
 ieFigure; plot(wave,tongue,'k'); hold on;
-plot(wave,BW_tongueReflectance,'r','LineWidth',2);
-plot(wave,JF_tongueReflectance,'g','LineWidth',2);
+plot(wave,S1_tongueReflectance,'r','LineWidth',2);
+plot(wave,S1_tongueReflectance,'g','LineWidth',2);
 title('Tongue Reflectance Measurements')
 fontsize(gca,16,"pixels");
 xlabel('wavelength (nm');
 ylabel('Reflectance');
 
-%$ Compare with lip
+%% Compare with lip
 ieFigure; plot(wave,tongue,'k'); hold on;
-plot(wave,BW_tongueReflectance,'r','LineWidth',2); 
-plot(wave,JF_tongueReflectance,'g','LineWidth',2);
-plot(wave,BW_lipReflectance,'r--','LineWidth',2); 
-plot(wave,JF_lipReflectance,'g--','LineWidth',2);
+plot(wave,S1_tongueReflectance,'r','LineWidth',2); 
+plot(wave,S3_tongueReflectance,'g','LineWidth',2);
+plot(wave,S1_lipReflectance,'r--','LineWidth',2); 
+plot(wave,S3_lipReflectance,'g--','LineWidth',2);
+
+%% To save, run this code
+
+%{
+%% Tongue
+comment = 'mean tongue reflectance calculated from data measured on 2025-05-27';
+
+fname = fullfile(oeTongueLipRootPath,'data','Reflectance','S3','tongueReflectance.mat');
+ieSaveSpectralFile(wave,S3_tongueReflectance,comment,fname);
+
+fname = fullfile(oeTongueLipRootPath,'data','Reflectance','S1','tongueReflectance.mat');
+ieSaveSpectralFile(wave,S1_tongueReflectance,comment,fname);
 
 
-% comment = 'mean tongue reflectance calculated from data measured on 2025-05-27';
-% ieSaveSpectralFile(wave,BW_tongueReflectance,comment);
-% ieSaveSpectralFile(wave,JF_tongueReflectance,comment);
-% 
-% comment = 'mean lip reflectance calculated from data measured on 2025-05-27';
-% ieSaveSpectralFile(wave,BW_lipReflectance,comment);
-% ieSaveSpectralFile(wave,JF_lipReflectance,comment);
+%% Lip
+comment = 'mean lip reflectance calculated from data measured on 2025-05-27';
+
+fname = fullfile(oeTongueLipRootPath,'data','Reflectance','S3','lipReflectance.mat');
+ieSaveSpectralFile(wave,S3_lipReflectance,comment,fname);
+
+fname = fullfile(oeTongueLipRootPath,'data','Reflectance','S1','lipReflectance.mat');
+ieSaveSpectralFile(wave,S1_lipReflectance,comment,fname);
+
+%}
