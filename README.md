@@ -1,8 +1,13 @@
 # oe_tongue_lip
 
-Tongue and Lip autofluorescence measurements
+These are data in support of paper making tongue and inner lip autofluorescence measurements.
 
-We are trying to sort out the pure fluorescence from the fluorescence after it passes through the blood.  We are also trying different fluorophores to see how well we might resolve.
+The paper, on biorxiv, is
 
-Joyce/Brian
+XXXX
+
+The wiki page presents the calculations implemented in the paper.
+
+Joyce Farrell
+Brian Wandell
 
