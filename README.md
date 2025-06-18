@@ -8,3 +8,6 @@ This study explores the potential of quantitative autofluorescence imaging (AFI)
 
 See the wiki for figures and computations.
 
+Figures:
+
+* [Figure 1](https://htmlpreview.github.io/?https://github.com/iset/oe_tongue_lip/blob/main/figures/oeFigure1_LightCalibration.html)
