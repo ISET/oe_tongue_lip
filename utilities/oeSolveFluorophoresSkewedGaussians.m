@@ -80,7 +80,7 @@ num_spectra = size(data, 2);  % Number of spectra
 % function oeSolveSkewedGaussianCGPT
 % CollagenWuQU:  476.9900   54.4317   -0.0069
 %
-nSkewedG = 4;
+nSkewedG = 3;
 mu0    = [430 475 530];
 a0     = [0, 0, 0];  % Initial skewness
 sigma0 = std(wave) * [0.5, 1, 1.5];  % Different scales for sigma
@@ -104,7 +104,7 @@ ub = [mu0 + 50, 200*ones(1,nSkewedG),  15*ones(1,nSkewedG)];
         
         Gaussians = skewed_gaussian(p(1), p(4), p(7), x);
         for ii=2:nSkewedG
-            Gaussians = [Gaussians,skewed_gaussian(p(ii),p(ii+3),p(ii+6))]; %#ok<AGROW>
+            Gaussians = [Gaussians,skewed_gaussian(p(ii),p(ii+3),p(ii+6),x)]; %#ok<AGROW>
         end
 
         % This was the case of 3 skewed Gaussians.  With the new code we
