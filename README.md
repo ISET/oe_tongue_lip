@@ -10,4 +10,4 @@ See the wiki for figures and computations.
 
 Figures:
 
-* [Figure 1](https://htmlpreview.github.io/?https://github.com/iset/oe_tongue_lip/blob/main/figures/oeFigure1_LightCalibration.html)
+* [Figure 1](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure1_LightCalibration.html)
