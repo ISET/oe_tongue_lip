@@ -38,66 +38,46 @@ and reflectance show evidence of blood absorption with dips at 540 and 580 nm.
 <img width="718" alt="image" src="https://github.com/user-attachments/assets/ff8fb00a-d060-46cd-815b-e905e14cf354" />
 
 [Figure 3.](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure3_GroupLights.html) 
-Fluorescence measured with the three different excitation lights. Lines of the same color used the
-same excitation light; within a color each curve is from a different subject. (A) Lip fluorescence. The data are
-very similar, although there is more overlap in the fluorescence using 405 nm and 415 nm excitation lights. (B)
-Tongue fluorescence. The data are very similar in the 500-600 nm, again with more overlap for the 405 nm and
-415 nm excitation light. However, there is more variation between subjects in the fluorescence measured in the
-600 - 700 nm band, which we explain in the analysis. All curves are scaled to 1 at 520 nm.
+Fluorescence measured with the three different excitation lights. Lines of the same color used the same excitation light; within a color each curve is from a different subject. (A) Lip fluorescence. The data are very similar, although there is more overlap in the fluorescence using 405 nm and 415 nm excitation lights. (B) Tongue fluorescence. The data are very similar in the 500-600 nm, again with more overlap for the 405 nm and
+415 nm excitation light. However, there is more variation between subjects in the fluorescence measured in the 600 - 700 nm band, which we explain in the analysis. All curves are scaled to 1 at 520 nm.
 
 ***
 
 <img width="741" alt="image" src="https://github.com/user-attachments/assets/f793f166-d1e1-4d98-9383-d90d2b8962dd" />
 
-[Figure 4.](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure4_TongueLip.html) Spectral radiance of dorsal tongue and inner lip oral mucosal tissue measured with excitation lights at
-(A) 405/415 nm and (B) 450 nm. The data were acquired from four subjects on different days, different excitation
-light intensities, and different locations on the dorsal tongue (solid line) or on the inner lip (dashed line). The
-spectral radiance curves are scaled to 1 at 520 nm.
-
+[Figure 4.](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure4_TongueLip.html) Spectral radiance of dorsal tongue and inner lip oral mucosal tissue measured with excitation lights at (A) 405/415 nm and (B) 450 nm. The data were acquired from four subjects on different days, different excitation light intensities, and different locations on the dorsal tongue (solid line) or on the inner lip (dashed line). The spectral radiance curves are scaled to 1 at 520 nm.
 
 ***
 
 <img width="741" alt="image" src="https://github.com/user-attachments/assets/f273fe65-3842-4dbc-80a3-e3587048aa4d" />
 
 
-[Figure 5.](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure5_9_ModelFits.html) Model description. (A) Description of the spatial distribution of the fluorophores in the tongue and lip.
-FAD, NADH, Collagen and blood are present in both. The tongue has an additional layer of cells with keratin, and
-the surface may contain both porphyrin and chlorophyll-a. The chlorophyll-a can be present from residual food,
-such as leafy vegetables. (B) The spectral emissions of the fluorophores. The collagen is illustrated after
-transmission through the blood. Filtering by the blood creates the local minima near 540 and 577 nm.
+[Figure 5.](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure5_9_ModelFits.html) Model description. (A) Description of the spatial distribution of the fluorophores in the tongue and lip. FAD, NADH, Collagen and blood are present in both. The tongue has an additional layer of cells with keratin, and the surface may contain both porphyrin and chlorophyll-a. The chlorophyll-a can be present from residual food, such as leafy vegetables. (B) The spectral emissions of the fluorophores. The collagen is illustrated after transmission through the blood. Filtering by the blood creates the local minima near 540 and 577 nm.
 
 ***
 
 <img width="578" alt="image" src="https://github.com/user-attachments/assets/8239513f-0c02-4b95-a50c-99b3b19dc9f5" />
 
 [Figure 6.](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure5_9_ModelFits.html) 
-Tongue bulk fluorescence from the 405/415 nm excitation lights. Each panel shows a different subject.
-The data include different excitation light intensities, different days and locations. The gray shaded curves are
-measurements, scaled to 1 at 520 nm, and the dashed black curves are model fits.
+Tongue bulk fluorescence from the 405/415 nm excitation lights. Each panel shows a different subject. The data include different excitation light intensities, different days and locations. The gray shaded curves are measurements, scaled to 1 at 520 nm, and the dashed black curves are model fits.
 
 ***
 
 <img width="578" alt="image" src="https://github.com/user-attachments/assets/f096de63-cad9-4253-b108-bfb603babbfd" />
 
-[Figure 7.](oeFigure5_9_ModelFits.html) Lip bulk fluorescence from the 405/415 nm excitation lights. Each panel shows a different subject. The
-curves include different excitation light intensities, different days and locations. The gray shaded curves are
-measurements, scaled to 1 at 520 nm, and the dashed black curves are model fits.
+[Figure 7.](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure5_9_ModelFits.html) Lip bulk fluorescence from the 405/415 nm excitation lights. Each panel shows a different subject. The curves include different excitation light intensities, different days and locations. The gray shaded curves are measurements, scaled to 1 at 520 nm, and the dashed black curves are model fits.
 
 ***
 
 <img width="663" alt="image" src="https://github.com/user-attachments/assets/d7cc24e2-463c-499d-bda6-5b3deed5d99f" />
 
-[Figure 8.](oeFigure5_9_ModelFits.html) Tongue bulk fluorescence from a 450 nm excitation light. Each panel shows a different subject. The
-curves include different excitation light intensities, different days and locations. The gray shaded curves are
-measurements, scaled to 1 at 520 nm, and the dashed black curves are model fits.
+[Figure 8.](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure5_9_ModelFits.html) Tongue bulk fluorescence from a 450 nm excitation light. Each panel shows a different subject. The curves include different excitation light intensities, different days and locations. The gray shaded curves are measurements, scaled to 1 at 520 nm, and the dashed black curves are model fits.
 
 ***
 
 <img width="663" alt="image" src="https://github.com/user-attachments/assets/c5741381-d62c-4321-8029-73bf3b8afba3" />
 
-[Figure 9.](oeFigure5_9_ModelFits.html) Lip bulk fluorescence and model fits from a 450 nm excitation light. Each panel shows a different
-subject. The curves include different excitation light intensities, different days and locations. The gray shaded
-curves are measurements, scaled to 1 at 520 nm, and the dashed black curves are model fits.
+[Figure 9.](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure5_9_ModelFits.html) Lip bulk fluorescence and model fits from a 450 nm excitation light. Each panel shows a different subject. The curves include different excitation light intensities, different days and locations. The gray shaded curves are measurements, scaled to 1 at 520 nm, and the dashed black curves are model fits.
 
 ***
 
