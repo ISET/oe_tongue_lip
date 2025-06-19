@@ -25,7 +25,7 @@ The figures are pasted below.  To see the script we used to create the figures, 
 
 <img width="761" alt="image" src="https://github.com/user-attachments/assets/951dee0e-25af-4858-a6cd-c99517de3fd4" />
 
-[Figure 2]((https://htmlpreview.github.io/?https://github.com/ISET/oeFigure2_FluorescenceAndReflectance.html)). Fluorescence signal compared to unwanted reflected light for a 415 nm excitation light. The solid
+[Figure 2](https://htmlpreview.github.io/?https://github.com/ISET/oeFigure2_FluorescenceAndReflectance.html). Fluorescence signal compared to unwanted reflected light for a 415 nm excitation light. The solid
 curves are fluorescent signals. The dashed curves are estimates of the reflected light. The symbols indicate the
 subject. (A) Lip. (B) Tongue. The data are plotted on a logarithmic (log₁₀) scale to highlight the fact that the tissue
 fluorescence levels exceeds the unwanted reflected light by an order of magnitude. Both tissue fluorescence
