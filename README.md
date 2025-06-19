@@ -25,7 +25,8 @@ The figures are pasted below.  To see the script we used to create the figures, 
 
 <img width="761" alt="image" src="https://github.com/user-attachments/assets/951dee0e-25af-4858-a6cd-c99517de3fd4" />
 
-[Figure 2](https://htmlpreview.github.io/?https://github.com/ISET/oeFigure2_FluorescenceAndReflectance.html). Fluorescence signal compared to unwanted reflected light for a 415 nm excitation light. The solid
+[Figure 2](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure2_FluorescenceAndReflectance.html). 
+Fluorescence signal compared to unwanted reflected light for a 415 nm excitation light. The solid
 curves are fluorescent signals. The dashed curves are estimates of the reflected light. The symbols indicate the
 subject. (A) Lip. (B) Tongue. The data are plotted on a logarithmic (log₁₀) scale to highlight the fact that the tissue
 fluorescence levels exceeds the unwanted reflected light by an order of magnitude. Both tissue fluorescence
@@ -36,7 +37,8 @@ and reflectance show evidence of blood absorption with dips at 540 and 580 nm.
 
 <img width="718" alt="image" src="https://github.com/user-attachments/assets/ff8fb00a-d060-46cd-815b-e905e14cf354" />
 
-[Figure 3.](oeFigure3_GroupLights.html) Fluorescence measured with the three different excitation lights. Lines of the same color used the
+[Figure 3.](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure3_GroupLights.html) 
+Fluorescence measured with the three different excitation lights. Lines of the same color used the
 same excitation light; within a color each curve is from a different subject. (A) Lip fluorescence. The data are
 very similar, although there is more overlap in the fluorescence using 405 nm and 415 nm excitation lights. (B)
 Tongue fluorescence. The data are very similar in the 500-600 nm, again with more overlap for the 405 nm and
@@ -47,7 +49,7 @@ Tongue fluorescence. The data are very similar in the 500-600 nm, again with mor
 
 <img width="741" alt="image" src="https://github.com/user-attachments/assets/f793f166-d1e1-4d98-9383-d90d2b8962dd" />
 
-[Figure 4.](oeFigure4_TongueLip.html) Spectral radiance of dorsal tongue and inner lip oral mucosal tissue measured with excitation lights at
+[Figure 4.](https://htmlpreview.github.io/?https://github.com/ISET/figures/oeFigure4_TongueLip.html) Spectral radiance of dorsal tongue and inner lip oral mucosal tissue measured with excitation lights at
 (A) 405/415 nm and (B) 450 nm. The data were acquired from four subjects on different days, different excitation
 light intensities, and different locations on the dorsal tongue (solid line) or on the inner lip (dashed line). The
 spectral radiance curves are scaled to 1 at 520 nm.
