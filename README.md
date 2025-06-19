@@ -17,7 +17,7 @@ The figures are pasted below.  To see the script we used to create the figures, 
 
 ![image](https://github.com/user-attachments/assets/f664e6bf-cf8f-4ac1-968b-d7339ce37b81)
 
-[Figure 1](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure1_LightCalibration.html).  A, B: Geometry and filters for the light measurement. These panels depict the measurement of the excitation lights. The nominal wavelengths for the lights are 405 nm, 415 nm, and 450 nm, but their actual peak wavelengths are 408 nm, 416 nm, and 444 nm, respectively. To minimize unwanted long-wavelength light, the excitation lights pass through a 450 nm short-pass filter. The graph in panel B displays the spectral radiance of these excitation lights on a logarithmic scale.  C, D: Geometry and filters for the oral cavity measurement. These panels show the setup for measuring light from the oral cavity. This arrangement is similar to the light measurement setup, but a 475 nm long-pass filter is positioned in front of the spectroradiometer. The graph in panel D shows the spectral fluorescence emitted from the dorsal tongue when illuminated with a 415 nm excitation light, also on a logarithmic scale. Note that the measured wavelength range for fluorescence is 500-700 nm, and the fluorescence signal is approximately four orders of magnitude lower than the peak radiance of the excitation light. The 475 nm long-pass filter is crucial for blocking reflected excitation light, which enables the long exposure time needed to detect the weak fluorescent signal.
+[Figure 1](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/figures/oeFigure1_LightCalibration.html).  A, B: Geometry and filters for the light measurement. These panels depict the measurement of the excitation lights. The nominal wavelengths for the lights are 405 nm, 415 nm, and 450 nm, but their actual peak wavelengths are 408 nm, 416 nm, and 444 nm, respectively. To minimize unwanted long-wavelength light, the excitation lights pass through a 450 nm short-pass filter. The graph in panel B displays the spectral radiance of these excitation lights on a logarithmic scale.  C, D: Geometry and filters for the oral cavity measurement. These panels show the setup for measuring light from the oral cavity. This arrangement is similar to the light measurement setup, but a 475 nm long-pass filter is positioned in front of the spectroradiometer. The graph in panel D shows the spectral fluorescence emitted from the dorsal tongue when illuminated with a 415 nm excitation light, also on a logarithmic scale. Note that the measured wavelength range for fluorescence is 500-700 nm, and the fluorescence signal is approximately four orders of magnitude lower than the peak radiance of the excitation light. The 475 nm long-pass filter is crucial for blocking reflected excitation light, which enables the long exposure time needed to detect the weak fluorescent signal.
 
 
 ***
@@ -25,7 +25,7 @@ The figures are pasted below.  To see the script we used to create the figures, 
 
 <img width="761" alt="image" src="https://github.com/user-attachments/assets/951dee0e-25af-4858-a6cd-c99517de3fd4" />
 
-[Figure 2](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure2_FluorescenceAndReflectance.html). 
+[Figure 2](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/figures/oeFigure2_FluorescenceAndReflectance.html). 
 Fluorescence signal compared to unwanted reflected light for a 415 nm excitation light. The solid
 curves are fluorescent signals. The dashed curves are estimates of the reflected light. The symbols indicate the
 subject. (A) Lip. (B) Tongue. The data are plotted on a logarithmic (log₁₀) scale to highlight the fact that the tissue
@@ -37,7 +37,7 @@ and reflectance show evidence of blood absorption with dips at 540 and 580 nm.
 
 <img width="718" alt="image" src="https://github.com/user-attachments/assets/ff8fb00a-d060-46cd-815b-e905e14cf354" />
 
-[Figure 3.](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/blob/main/figures/oeFigure3_GroupLights.html) 
+[Figure 3.](https://htmlpreview.github.io/?https://github.com/ISET/oe_tongue_lip/figures/oeFigure3_GroupLights.html) 
 Fluorescence measured with the three different excitation lights. Lines of the same color used the
 same excitation light; within a color each curve is from a different subject. (A) Lip fluorescence. The data are
 very similar, although there is more overlap in the fluorescence using 405 nm and 415 nm excitation lights. (B)
