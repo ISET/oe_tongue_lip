@@ -11,7 +11,9 @@ The full paper is available at ...
 ## Computational
 This repository depends on [ISETCam](https://github.com/ISET/isetcam/wiki) and [isetfluorescence](https://github.com/ISET/isetfluorescence/wiki). To run this code, please download those repositories and this one (oe_tongue_lip). Place these repositories on your path. 
 
-The figures are pasted below.  To see the script we used to create the figures, click on the link on the figure number. 
+The figures are pasted below.  
+
+**To see the script we used to create the figures, click on the link on the figure number.** 
 
 ## Figures
 
