@@ -69,10 +69,10 @@ xlim([400 800]);
 
 %% Joyce 
 % Before lunch (tongue 415 at different intensities)
-J_tongue = ieReadSpectra('spd-2024-03-08-J-415nm450spf-80mA-R01.mat',waves); figure; plot(waves,J_tongue,'k:','LineWidth',2); hold on;
-J_tongue = ieReadSpectra('spd-2024-03-08-J-415nm450spf-170mA-R01.mat',waves);    plot(waves,J_tongue,'k-.','LineWidth',2); hold on;	
-J_tongue = ieReadSpectra('spd-2024-03-08-J-415nm450spf-460mA-R01.mat',waves);    plot(waves,J_tongue,'k--','LineWidth',2); hold on;		
-J_tongue = ieReadSpectra('spd-2024-03-08-J-415nm450spf-910mA-R01.mat',waves);    plot(waves,J_tongue,'k','LineWidth',2);
+J_tongue = ieReadSpectra('spd-2024-03-08-J-tongue-415nm450spf-80mA-R01.mat',waves); figure; plot(waves,J_tongue,'k:','LineWidth',2); hold on;
+J_tongue = ieReadSpectra('spd-2024-03-08-J-tongue-415nm450spf-170mA-R01.mat',waves);    plot(waves,J_tongue,'k-.','LineWidth',2); hold on;	
+J_tongue = ieReadSpectra('spd-2024-03-08-J-tongue-415nm450spf-460mA-R01.mat',waves);    plot(waves,J_tongue,'k--','LineWidth',2); hold on;		
+J_tongue = ieReadSpectra('spd-2024-03-08-J-tongue-415nm450spf-910mA-R01.mat',waves);    plot(waves,J_tongue,'k','LineWidth',2);
 plot(waves,predictedTongueReflectance_415nm_910mA,'k-o','LineWidth',2); 
 title('JF');
 fontsize(gca,16,"pixels");
