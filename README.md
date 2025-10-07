@@ -1,8 +1,10 @@
-# oe_tongue_lip
+# Modeling Spectroradiometric Measurements of Oral Mucosal Autofluorescence
 
-Tongue and Lip autofluorescence measurements
+Joyce E. Farrell, Xi Mou, Brian A. Wandell
+Stanford University
 
-We are trying to sort out the pure fluorescence from the fluorescence after it passes through the blood.  We are also trying different fluorophores to see how well we might resolve.
+**Abstract**
+This study explores the potential of quantitative autofluorescence imaging (AFI) as an objective tool for monitoring the health of oral mucosal tissue. Our approach involves acquiring spectroradiometric measurements of tissue fluorescence and utilizing a model to understand the fluorophores influencing these measurements, including the impact of blood attenuation. We acquired fluorescence measurements from the dorsal tongue and inner lip of healthy human volunteers, subsequently fitting the model to these data to estimate individual fluorophore contributions and the optical density of the blood. Our dataset and model, which are freely shared in an open repository, aim to advance the development of quantitative, non-invasive diagnostic imaging systems for monitoring oral health, ultimately facilitating the detection and characterization of oral mucosal tissue abnormalities.
 
-Joyce/Brian
+See the wiki for figures and computations.
 
