@@ -46,6 +46,49 @@ set(gca,'ylim',[0 3]) %[output:3e447ecd]
 set(gca,'Fontsize',fontSizePlot); %[output:3e447ecd]
 lgn.FontSize = fontSizeLegend; %[output:3e447ecd]
 exportgraphics(gcf,'figure4A.png','Resolution',150); %[output:3e447ecd]
+
+%% We were asked by a reviewer to explore the remaining variation
+
+% Some of the remaining variation (after normalizing for the light
+% level), is due to subject differences.  Here are the means for the
+% four different subjects over the wavelength range of interest.
+
+ieFigure; 
+c = {'r','g','b','c'};
+for ii=1:numel(subjects)
+    files405 = ieTableGet(T,'subject',subjects{ii},'substrate','tongue','e wave',405);
+    files415 = ieTableGet(T,'subject',subjects{ii},'substrate','tongue','e wave',415);
+    tongueFiles = cat(1,files405,files415);
+    tmp  = oeReadFiles(tongueFiles,'normalized wave',normWave,'wave',wave);
+    plot(wave,mean(tmp,2),[c{ii},'-'],'LineWidth',3); grid on; hold on;
+    set(gca,'xlim',[500 600],'ylim',[0 3]);
+end
+xlabel('Wavelength (nm)');
+ylabel('Normalized response');
+
+%% Here is the fluorescence signal current dependence (after the normalization)
+
+tongueData = [];
+ieFigure; 
+tiledlayout(2,2);
+for ii=1:numel(subjects)
+    [files415, tRows] = ieTableGet(T,'subject',subjects{ii},'substrate','tongue','e wave',415);
+    eLevelValues = tRows.elevel;
+    
+    nFiles = numel(files415);
+    thisWave = 550;
+    idxWave = find(wave==thisWave);
+    thisResponse = zeros(nFiles,1);
+    for jj = 1:nFiles        
+        tmp = oeReadFiles(files415(jj),'normalized wave',normWave,'wave',wave);
+        thisResponse(jj) = tmp(idxWave);
+    end
+    nexttile;
+    plot(eLevelValues,thisResponse,'ko'); grid on;
+    set(gca,'ylim',[0.45 0.90])
+    xlabel('Current level (mA)'); ylabel(sprintf('%d nm response',thisWave));
+end
+
 %%
 %[text] ### 450 nm excitation light
 tongueData450 = [];
